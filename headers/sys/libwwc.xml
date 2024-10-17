@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<header>
+	<comment>Hardware architectures</comment>
+	<define name="HARDARCH_WS" value="0">WonderSwan-compatible console</define>
+	<define name="HARDARCH_WSC" value="1">WonderSwan Color-compatible console</define>
+
+	<comment>Color modes</comment>
+	<define name="COLOR_MODE_GRAYSCALE" value="0x00">2bpp mono mode</define>
+	<define name="COLOR_MODE_4COLOR" value="0x80">2bpp color mode</define>
+	<define name="COLOR_MODE_16COLOR" value="0xC0">4bpp planar color mode</define>
+	<define name="COLOR_MODE_16PACKED" value="0xE0">4bpp packed color mode</define>
+
+	<function name="wwc_get_hardarch">
+		<return type="u8"/>
+	</function>
+	<function name="wwc_set_color_mode">
+		<argument name="mode" type="u8"/>
+	</function>
+	<function name="wwc_get_color_mode">
+		<return type="u8"/>
+	</function>
+	<function name="wwc_palette_set_color">
+		<argument name="index" type="u8"/>
+		<argument name="color" type="u8"/>
+		<argument name="rgb" type="u16"/>
+	</function>
+	<function name="wwc_palette_get_color">
+		<argument name="index" type="u8"/>
+		<argument name="color" type="u8"/>
+		<return type="u16"/>
+	</function>
+	<function name="wwc_font_set_colordata">
+		<argument name="start" type="u16"/>
+		<argument name="count" type="u16"/>
+		<argument name="data" type="void*" const="1" far="1"/>
+	</function>
+	<function name="wwc_font_get_colordata">
+		<argument name="start" type="u16"/>
+		<argument name="count" type="u16"/>
+		<argument name="data" type="void*" far="1"/>
+	</function>
+	<function name="wwc_clear_font">
+	</function>
+	<function name="wwc_sys_get_ownerinfo">
+		<argument name="size" type="u16"/>
+		<argument name="data" type="void*"/>
+	</function>
+</header>

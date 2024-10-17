@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<header>
+	<comment>Hardware interrupt vectors</comment>
+	<define name="SYS_INT_SENDREADY" value="0">Serial TX ready</define>
+	<define name="SYS_INT_KEY" value="1">Key pressed</define>
+	<define name="SYS_INT_CASETTE" value="2">Cartridge IRQ</define>
+	<define name="SYS_INT_RECEIVEREADY" value="3">Serial RX ready</define>
+	<define name="SYS_INT_DISPLINE" value="4">Display interrupt line match</define>
+	<define name="SYS_INT_TIMER_COUNTUP" value="5">VBlank Timer</define>
+	<define name="SYS_INT_VBLANK" value="6">VBlank</define>
+	<define name="SYS_INT_HBLANK_COUNTUP" value="7">HBlank Timer</define>
+
+	<function name="sys_interrupt_set_hook" type="interrupt" int="0x17">
+		<constant register="ah" value="0x00"/>
+		<argument name="id" type="u8" register="al"/>
+		<argument name="new_vector" type="intvector_t*" register="ds:bx"/>
+		<argument name="old_vector" type="intvector_t*" register="ds:dx"/>
+	</function>
+	<function name="sys_interrupt_reset_hook" type="interrupt" int="0x17">
+		<constant register="ah" value="0x01"/>
+		<argument name="id" type="u8" register="al"/>
+		<argument name="old_vector" type="intvector_t*" register="ds:bx"/>
+	</function>
+	<function name="sys_wait" type="interrupt" int="0x17">
+		<constant register="ah" value="0x02"/>
+		<argument name="ticks" type="u16" register="cx"/>
+	</function>
+	<function name="sys_get_tick_count" type="interrupt" int="0x17">
+		<constant register="ah" value="0x03"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="sys_sleep" type="interrupt" int="0x17">
+		<constant register="ah" value="0x04"/>
+	</function>
+	<function name="sys_set_sleep_time" type="interrupt" int="0x17">
+		<constant register="ah" value="0x05"/>
+		<argument name="value" type="u16" register="bx"/>
+	</function>
+	<function name="sys_get_sleep_time" type="interrupt" int="0x17">
+		<constant register="ah" value="0x06"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="sys_set_awake_key" type="interrupt" int="0x17">
+		<constant register="ah" value="0x07"/>
+		<argument name="value" type="u16" register="bx"/>
+	</function>
+	<function name="sys_get_awake_key" type="interrupt" int="0x17">
+		<constant register="ah" value="0x08"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="sys_set_keepalive_int" type="interrupt" int="0x17">
+		<constant register="ah" value="0x09"/>
+		<argument name="value" type="u16" register="bx"/>
+	</function>
+	<function name="sys_get_ownerinfo" type="interrupt" int="0x17">
+		<constant register="ah" value="0x0A"/>
+		<argument name="size" type="u16" register="cx"/>
+		<argument name="data" type="void*" register="ds:dx"/>
+	</function>
+	<!-- TODO: sys_suspend -->
+	<!-- TODO: sys_resume -->
+	<function name="sys_set_remote" type="interrupt" int="0x17">
+		<constant register="ah" value="0x0D"/>
+		<argument name="value" type="u8" register="al"/>
+	</function>
+	<function name="sys_get_remote" type="interrupt" int="0x17">
+		<constant register="ah" value="0x0E"/>
+		<return type="u8" register="al"/>
+	</function>
+	<function name="sys_alloc_iram" type="interrupt" int="0x17">
+		<constant register="ah" value="0x0F"/>
+		<argument name="ptr" type="void*" register="bx"/>
+		<argument name="size" type="u16" register="cx"/>
+		<return type="void*" register="ax"/>
+	</function>
+	<function name="sys_free_iram" type="interrupt" int="0x17">
+		<constant register="ah" value="0x10"/>
+		<argument name="ptr" type="void*" register="bx"/>
+	</function>
+	<function name="sys_get_my_iram" type="interrupt" int="0x17">
+		<constant register="ah" value="0x11"/>
+		<return type="void*" register="ax"/>
+	</function>
+	<function name="sys_get_version" type="interrupt" int="0x17">
+		<constant register="ah" value="0x12"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<!-- TODO: sys_swap -->
+	<function name="sys_set_resume" type="interrupt" int="0x17">
+		<constant register="ah" value="0x14"/>
+		<argument name="value" type="u16" register="bx"/>
+	</function>
+	<function name="sys_get_resume" type="interrupt" int="0x17">
+		<constant register="ah" value="0x15"/>
+		<return type="u16" register="ax"/>
+	</function>
+</header>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<header>
+	<comment>RTC fields</comment>
+	<define name="RTC_YEAR" value="0"/>
+	<define name="RTC_MONTH" value="1"/>
+	<define name="RTC_DATE" value="2"/>
+	<define name="RTC_DAY_OF_WEEK" value="3"/>
+	<define name="RTC_HOUR" value="4"/>
+	<define name="RTC_MIN" value="5"/>
+	<define name="RTC_SEC" value="6"/>
+
+	<comment>Timers</comment>
+	<define name="TIMER_HBLANK" value="0"/>
+	<define name="TIMER_VBLANK" value="1"/>
+
+	<comment>Timer reload modes</comment>
+	<define name="TIMER_ONESHOT" value="0"/>
+	<define name="TIMER_AUTOPRESET" value="1"/>
+
+	<define name="rtc_set_year(value)" value="rtc_set_datetime(RTC_YEAR, value)"/>
+	<define name="rtc_set_month(value)" value="rtc_set_datetime(RTC_MONTH, value)"/>
+	<define name="rtc_set_date(value)" value="rtc_set_datetime(RTC_DATE, value)"/>
+	<define name="rtc_set_day_of_week(value)" value="rtc_set_datetime(RTC_DAY_OF_WEEK, value)"/>
+	<define name="rtc_set_hour(value)" value="rtc_set_datetime(RTC_HOUR, value)"/>
+	<define name="rtc_set_min(value)" value="rtc_set_datetime(RTC_MIN, value)"/>
+	<define name="rtc_set_sec(value)" value="rtc_set_datetime(RTC_SEC, value)"/>
+
+	<define name="rtc_get_year()" value="rtc_get_datetime(RTC_YEAR)"/>
+	<define name="rtc_get_month()" value="rtc_get_datetime(RTC_MONTH)"/>
+	<define name="rtc_get_date()" value="rtc_get_datetime(RTC_DATE)"/>
+	<define name="rtc_get_day_of_week()" value="rtc_get_datetime(RTC_DAY_OF_WEEK)"/>
+	<define name="rtc_get_hour()" value="rtc_get_datetime(RTC_HOUR)"/>
+	<define name="rtc_get_min()" value="rtc_get_datetime(RTC_MIN)"/>
+	<define name="rtc_get_sec()" value="rtc_get_datetime(RTC_SEC)"/>
+
+	<function name="rtc_reset" type="interrupt" int="0x16">
+		<constant register="ah" value="0x00"/>
+	</function>
+	<function name="rtc_set_datetime" type="interrupt" int="0x16">
+		<constant register="ah" value="0x01"/>
+		<argument name="field" type="u16" register="bx"/>
+		<argument name="value" type="u16" register="cx"/>
+	</function>
+	<function name="rtc_get_datetime" type="interrupt" int="0x16">
+		<constant register="ah" value="0x02"/>
+		<argument name="field" type="u16" register="bx"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="rtc_set_datetime_struct" type="interrupt" int="0x16">
+		<constant register="ah" value="0x03"/>
+		<argument name="value" type="datetime_t*" register="ds:dx" const="1"/>
+	</function>
+	<function name="rtc_get_datetime_struct" type="interrupt" int="0x16">
+		<constant register="ah" value="0x04"/>
+		<argument name="value" type="datetime_t*" register="ds:dx"/>
+	</function>
+	<function name="rtc_enable_alarm" type="interrupt" int="0x16">
+		<constant register="ah" value="0x05"/>
+		<argument name="hour" type="u8" register="bl"/>
+		<argument name="minute" type="u8" register="bh"/>
+	</function>
+	<function name="rtc_disable_alarm" type="interrupt" int="0x16">
+		<constant register="ah" value="0x06"/>
+	</function>
+	<function name="timer_enable" type="interrupt" int="0x16">
+		<constant register="ah" value="0x07"/>
+		<argument name="type" type="u8" register="al"/>
+		<argument name="reload" type="u16" register="bx"/>
+		<argument name="count" type="u16" register="cx"/>
+	</function>
+	<function name="timer_disable" type="interrupt" int="0x16">
+		<constant register="ah" value="0x08"/>
+		<argument name="type" type="u8" register="al"/>
+	</function>
+	<function name="timer_get_count" type="interrupt" int="0x16">
+		<constant register="ah" value="0x09"/>
+		<argument name="type" type="u8" register="al"/>
+	</function>
+</header>

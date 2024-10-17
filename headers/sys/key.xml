@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<header>
+	<comment>Key masks</comment>
+	<define name="KEY_Y4" value="0x0800"/>
+	<define name="KEY_Y3" value="0x0400"/>
+	<define name="KEY_Y2" value="0x0200"/>
+	<define name="KEY_Y1" value="0x0100"/>
+	<define name="KEY_X4" value="0x0080"/>
+	<define name="KEY_X3" value="0x0040"/>
+	<define name="KEY_X2" value="0x0020"/>
+	<define name="KEY_X1" value="0x0010"/>
+	<define name="KEY_B" value="0x0008"/>
+	<define name="KEY_A" value="0x0004"/>
+	<define name="KEY_START" value="0x0002"/>
+
+	<define name="KEY_UP1" value="KEY_X1"/>
+	<define name="KEY_RIGHT1" value="KEY_X2"/>
+	<define name="KEY_DOWN1" value="KEY_X3"/>
+	<define name="KEY_LEFT1" value="KEY_X4"/>
+	<define name="KEY_UP2" value="KEY_Y1"/>
+	<define name="KEY_RIGHT2" value="KEY_Y2"/>
+	<define name="KEY_DOWN2" value="KEY_Y3"/>
+	<define name="KEY_LEFT2" value="KEY_Y4"/>
+
+	<function name="key_press_check" type="interrupt" int="0x11">
+		<comment>Check for currently held keys.</comment>
+		<constant register="ah" value="0x00"/>
+		<return type="u16" register="ax">Mask of currently held keys</return>
+	</function>
+	<function name="key_hit_check" type="interrupt" int="0x11">
+		<comment>Check for newly pressed keys.</comment>
+		<constant register="ah" value="0x01"/>
+		<return type="u16" register="ax">Mask of newly pressed keys</return>
+	</function>
+	<function name="key_wait" type="interrupt" int="0x11">
+		<comment>Wait until a key is pressed.</comment>
+		<constant register="ah" value="0x02"/>
+		<return type="u16" register="ax">Mask of newly pressed keys</return>
+	</function>
+	<function name="key_set_repeat" type="interrupt" int="0x11">
+		<constant register="ah" value="0x03"/>
+		<argument name="delay" type="u8" register="bl"/>
+		<argument name="rate" type="u8" register="bh"/>
+	</function>
+	<function name="key_get_repeat" type="interrupt" int="0x11">
+		<constant register="ah" value="0x04"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="key_hit_check_with_repeat" type="interrupt" int="0x11">
+		<comment>Check for newly pressed keys, taking into account the repeat delay/rate configuration.</comment>
+		<constant register="ah" value="0x05"/>
+		<return type="u16" register="ax">Mask of newly pressed keys</return>
+	</function>
+</header>

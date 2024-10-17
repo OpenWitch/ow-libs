@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<header>
+	<comment>Serial port configuration flags</comment>
+	<define name="COMM_SPEED_9600" value="0">9600 bauds per second (960 bytes per second)</define>
+	<define name="COMM_SPEED_38400" value="1">38400 bauds per second (3840 bytes per second)</define>
+
+	<comment>Error return codes</comment>
+	<define name="ERR_SIO_OK" value="0">Success</define>
+	<define name="ERR_SIO_BUSY" value="0x8100"></define>
+	<define name="ERR_SIO_TIMEOUT" value="0x8101">Serial operation timed out</define>
+	<define name="ERR_SIO_OVERRUN" value="0x8102">Serial RX buffer overrun</define>
+	<define name="ERR_SIO_CANCEL" value="0x8103">Serial operation cancelled by user</define>
+	<define name="ERR_XM_STATECODE" value="0x8104"></define>
+	<define name="ERR_XM_CANCELED" value="0x8105"></define>
+	<define name="ERR_XM_BLOCK_LOST" value="0x8106"></define>
+	<define name="ERR_XM_TOO_LARGE" value="0x8107"></define>
+
+	<function name="comm_open" type="interrupt" int="0x14">
+		<constant register="ah" value="0x00"/>
+	</function>
+	<function name="comm_close" type="interrupt" int="0x14">
+		<constant register="ah" value="0x01"/>
+	</function>
+	<function name="comm_send_char" type="interrupt" int="0x14">
+		<constant register="ah" value="0x02"/>
+		<argument name="ch" type="u8" register="bl">Character to send</argument>
+		<return type="s16" register="ax">Zero on success, negative on error</return>
+	</function>
+	<function name="comm_receive_char" type="interrupt" int="0x14">
+		<comment>Receive a character using the default timeout.</comment>
+		<constant register="ah" value="0x03"/>
+		<return type="s16" register="ax">Character read on success, negative on error</return>
+	</function>
+	<function name="comm_receive_with_timeout" type="interrupt" int="0x14">
+		<comment>Receive a character using an user-provided timeout.</comment>
+		<constant register="ah" value="0x04"/>
+		<argument name="timeout" type="u16" register="cx">Timeout, in frames</argument>
+		<return type="s16" register="ax">Character read on success, negative on error</return>
+	</function>
+	<function name="comm_send_string" type="interrupt" int="0x14">
+		<constant register="ah" value="0x05"/>
+		<argument name="str" type="char*" const="1" register="ds:dx">Input string to send</argument>
+		<return type="s16" register="ax">Return code</return>
+	</function>
+	<function name="comm_send_block" type="interrupt" int="0x14">
+		<constant register="ah" value="0x06"/>
+		<argument name="data" type="void*" const="1" register="ds:dx">Data to send</argument>
+		<argument name="length" type="u16" register="cx">Length of data to send</argument>
+		<return type="s16" register="ax">Return code</return>
+	</function>
+	<function name="comm_receive_block" type="interrupt" int="0x14">
+		<constant register="ah" value="0x07"/>
+		<argument name="data" type="void*" register="ds:dx">Data buffer</argument>
+		<argument name="length" type="u16" register="cx">Length of buffer, in bytes</argument>
+		<return type="s16" register="ax">Return code</return>
+		<return name="out_length" type="s16" register="dx">Length of data received, in bytes</return>
+	</function>
+	<function name="comm_set_timeout" type="interrupt" int="0x14">
+		<constant register="ah" value="0x08"/>
+		<argument name="recv_timeout" type="u16" register="bx">Receive timeout</argument>
+		<argument name="send_timeout" type="u16" register="bx">Send timeout</argument>
+	</function>
+	<function name="comm_set_baudrate" type="interrupt" int="0x14">
+		<constant register="ah" value="0x09"/>
+		<argument name="value" type="u16" register="bx">New baud rate</argument>
+	</function>
+	<function name="comm_get_baudrate" type="interrupt" int="0x14">
+		<constant register="ah" value="0x0A"/>
+		<return type="u16" register="ax">Current baud rate</return>
+	</function>
+	<function name="comm_set_cancel_key" type="interrupt" int="0x14">
+		<constant register="ah" value="0x0B"/>
+		<argument name="value" type="u16" register="bx">New cancel key combination</argument>
+	</function>
+	<function name="comm_get_cancel_key" type="interrupt" int="0x14">
+		<constant register="ah" value="0x0C"/>
+		<return type="u16" register="ax">Current cancel key combination</return>
+	</function>
+	<!-- TODO: comm_xmodem -->
+</header>

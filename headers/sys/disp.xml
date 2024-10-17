@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<header>
+	<comment>display_control() flags</comment>
+	<define name="DCM_SCR1" value="0x01">Enable screen 1 layer</define>
+	<define name="DCM_SCR2" value="0x02">Enable screen 2 layer</define>
+	<define name="DCM_SPR" value="0x04">Enable sprite layer</define>
+	<define name="DCM_SPR_WIN" value="0x08">Enable sprite layer window</define>
+	<define name="DCM_SCR2_WIN_INSIDE" value="0x20">Enable screen 2 layer window, display inside window</define>
+	<define name="DCM_SCR2_WIN_OUTSIDE" value="0x30">Enable screen 2 layer window, display outside window</define>
+	<define name="DCM_BORDER_COLOR" value="0x0700">Border color mask (mono mode)</define>
+
+	<comment>Screen IDs</comment>
+	<define name="SCREEN1" value="0"/>
+	<define name="SCREEN2" value="1"/>
+
+	<comment>Tile attribute flags</comment>
+	<define name="CFM_FONT" value="0x01FF">Tile index mask</define>
+	<define name="CFSFT_PALETTE" value="9">Palette shift</define>
+	<define name="CFM_SCR_PALETTE" value="0x1E00">Tile palette mask</define>
+	<define name="CFM_SPR_PALETTE" value="0x0E00">Sprite palette mask</define>
+	<define name="CFM_SPRWIN_CLIP" value="0x1000">Display sprite outside window area</define>
+	<define name="CFM_SPR_UPPER" value="0x2000">Display sprite in front of screen 2</define>
+	<define name="CFM_FLIP_H" value="0x4000">Flip horizontally</define>
+	<define name="CFM_FLIP_V" value="0x8000">Flip vertically</define>
+
+	<comment>LCD segment flags</comment>
+	<define name="LCDSEG_SLEEP" value="0x01">Sleep</define>
+	<define name="LCDSEG_VERTICAL" value="0x02">Vertical orientation</define>
+	<define name="LCDSEG_HORIZONTAL" value="0x04">Horizontal orientation</define>
+	<define name="LCDSEG_AUX1" value="0x08">Aux 1</define>
+	<define name="LCDSEG_AUX2" value="0x10">Aux 2</define>
+	<define name="LCDSEG_AUX3" value="0x20">Aux 3</define>
+
+	<comment>LCD sleep modes</comment>
+	<define name="LCD_SLEEP_ON" value="0">Sleep on (display disabled)</define>
+	<define name="LCD_SLEEP_OFF" value="1">Sleep off (display enabled)</define>
+
+	<define name="lcd_on()" value="lcd_set_sleep(LCD_SLEEP_OFF)"/>
+	<define name="lcd_off()" value="lcd_set_sleep(LCD_SLEEP_ON)"/>
+
+	<comment>Useful constants</comment>
+	<define name="LCD_PIXEL_WIDTH" value="224"/>
+	<define name="LCD_PIXEL_HEIGHT" value="144"/>
+	<define name="SCREEN_PIXEL_WIDTH" value="256"/>
+	<define name="SCREEN_PIXEL_HEIGHT" value="256"/>
+	<define name="SCREEN_CHAR_WIDTH" value="32"/>
+	<define name="SCREEN_CHAR_HEIGHT" value="32"/>
+
+	<function name="display_control" type="interrupt" int="0x12">
+		<constant register="ah" value="0x00"/>
+		<argument name="value" type="u16" register="bx"/>
+	</function>
+	<function name="display_status" type="interrupt" int="0x12">
+		<constant register="ah" value="0x01"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="font_set_monodata" type="interrupt" int="0x12">
+		<constant register="ah" value="0x02"/>
+		<argument name="start" type="u16" register="bx"/>
+		<argument name="count" type="u16" register="cx"/>
+		<argument name="data" type="void*" const="1" register="ds:dx"/>
+	</function>
+	<function name="font_set_colordata" type="interrupt" int="0x12">
+		<constant register="ah" value="0x03"/>
+		<argument name="start" type="u16" register="bx"/>
+		<argument name="count" type="u16" register="cx"/>
+		<argument name="data" type="void*" const="1" register="ds:dx"/>
+	</function>
+	<function name="font_get_data" type="interrupt" int="0x12">
+		<constant register="ah" value="0x04"/>
+		<argument name="start" type="u16" register="bx"/>
+		<argument name="count" type="u16" register="cx"/>
+		<argument name="data" type="void*" register="ds:dx"/>
+	</function>
+	<function name="font_set_color" type="interrupt" int="0x12">
+		<constant register="ah" value="0x05"/>
+		<argument name="value" type="u16" register="bx"/>
+	</function>
+	<function name="font_get_color" type="interrupt" int="0x12">
+		<constant register="ah" value="0x06"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="screen_set_char" type="interrupt" int="0x12">
+		<constant register="ah" value="0x07"/>
+		<argument name="screen_id" type="u8" register="al"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<argument name="width" type="u8" register="cl"/>
+		<argument name="height" type="u8" register="ch"/>
+		<argument name="tiles" type="void*" const="1" register="ds:dx"/>
+	</function>
+	<function name="screen_get_char" type="interrupt" int="0x12">
+		<constant register="ah" value="0x08"/>
+		<argument name="screen_id" type="u8" register="al"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<argument name="width" type="u8" register="cl"/>
+		<argument name="height" type="u8" register="ch"/>
+		<argument name="tiles" type="void*" register="ds:dx"/>
+	</function>
+	<function name="screen_get_char1" type="interrupt" int="0x12">
+		<constant register="ah" value="0x08"/>
+		<argument name="screen_id" type="u8" register="al"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<constant register="cx" value="0"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="screen_fill_char" type="interrupt" int="0x12">
+		<constant register="ah" value="0x09"/>
+		<argument name="screen_id" type="u8" register="al"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<argument name="width" type="u8" register="cl"/>
+		<argument name="height" type="u8" register="ch"/>
+		<argument name="tile" type="u16" register="dx"/>
+	</function>
+	<function name="screen_fill_attr" type="interrupt" int="0x12">
+		<constant register="ah" value="0x0A"/>
+		<argument name="screen_id" type="u8" register="al"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<argument name="width" type="u8" register="cl"/>
+		<argument name="height" type="u8" register="ch"/>
+		<argument name="tile" type="u16" register="dx"/>
+		<argument name="mask" type="u16" register="si"/>
+	</function>
+	<function name="sprite_set_range" type="interrupt" int="0x12">
+		<constant register="ah" value="0x0B"/>
+		<argument name="first" type="u16" register="bx"/>
+		<argument name="count" type="u16" register="cx"/>
+	</function>
+	<function name="sprite_set_char" type="interrupt" int="0x12">
+		<constant register="ah" value="0x0C"/>
+		<argument name="id" type="u16" register="bx"/>
+		<argument name="tile" type="u16" register="cx"/>
+	</function>
+	<function name="sprite_get_char" type="interrupt" int="0x12">
+		<constant register="ah" value="0x0D"/>
+		<argument name="id" type="u16" register="bx"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="sprite_set_location" type="interrupt" int="0x12">
+		<constant register="ah" value="0x0E"/>
+		<argument name="id" type="u16" register="bx"/>
+		<argument name="x" type="u8" register="dl"/>
+		<argument name="y" type="u8" register="dh"/>
+	</function>
+	<function name="sprite_get_location" type="interrupt" int="0x12">
+		<constant register="ah" value="0x0F"/>
+		<argument name="id" type="u16" register="bx"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="sprite_set_char_location" type="interrupt" int="0x12">
+		<constant register="ah" value="0x10"/>
+		<argument name="id" type="u16" register="bx"/>
+		<argument name="tile" type="u16" register="cx"/>
+		<argument name="x" type="u8" register="dl"/>
+		<argument name="y" type="u8" register="dh"/>
+	</function>
+	<function name="sprite_get_char_location" type="interrupt" int="0x12">
+		<constant register="ah" value="0x11"/>
+		<argument name="id" type="u16" register="bx"/>
+		<return type="u32" register="dx:ax"/>
+	</function>
+	<function name="sprite_set_data" type="interrupt" int="0x12">
+		<constant register="ah" value="0x12"/>
+		<argument name="first" type="u16" register="bx"/>
+		<argument name="count" type="u16" register="cx"/>
+		<argument name="data" type="void*" const="1" register="ds:dx"/>
+	</function>
+	<function name="screen_set_scroll" type="interrupt" int="0x12">
+		<constant register="ah" value="0x13"/>
+		<argument name="id" type="u8" register="al"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+	</function>
+	<function name="screen_get_scroll" type="interrupt" int="0x12">
+		<constant register="ah" value="0x14"/>
+		<argument name="id" type="u8" register="al"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="screen2_set_window" type="interrupt" int="0x12">
+		<constant register="ah" value="0x15"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<argument name="width" type="u8" register="cl"/>
+		<argument name="height" type="u8" register="ch"/>
+	</function>
+	<function name="screen2_get_window" type="interrupt" int="0x12">
+		<constant register="ah" value="0x16"/>
+		<return type="u32" register="dx:ax"/>
+	</function>
+	<function name="sprite_set_window" type="interrupt" int="0x12">
+		<constant register="ah" value="0x17"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<argument name="width" type="u8" register="cl"/>
+		<argument name="height" type="u8" register="ch"/>
+	</function>
+	<function name="sprite_get_window" type="interrupt" int="0x12">
+		<constant register="ah" value="0x18"/>
+		<return type="u32" register="dx:ax"/>
+	</function>
+	<function name="palette_set_color" type="interrupt" int="0x12">
+		<constant register="ah" value="0x19"/>
+		<argument name="index" type="u16" register="bx"/>
+		<argument name="colors" type="u16" register="cx"/>
+	</function>
+	<function name="palette_get_color" type="interrupt" int="0x12">
+		<constant register="ah" value="0x1A"/>
+		<argument name="index" type="u16" register="bx"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="lcd_set_color" type="interrupt" int="0x12">
+		<constant register="ah" value="0x1B"/>
+		<argument name="low" type="u16" register="bx"/>
+		<argument name="high" type="u16" register="cx"/>
+	</function>
+	<function name="lcd_get_color" type="interrupt" int="0x12">
+		<constant register="ah" value="0x1C"/>
+		<return type="u32" register="dx:ax"/>
+	</function>
+	<function name="lcd_set_segments" type="interrupt" int="0x12">
+		<constant register="ah" value="0x1D"/>
+		<argument name="flags" type="u16" register="bx"/>
+	</function>
+	<function name="lcd_get_segments" type="interrupt" int="0x12">
+		<constant register="ah" value="0x1E"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="lcd_set_sleep" type="interrupt" int="0x12">
+		<constant register="ah" value="0x1F"/>
+		<argument name="flags" type="u16" register="bx"/>
+	</function>
+	<function name="lcd_get_sleep" type="interrupt" int="0x12">
+		<constant register="ah" value="0x20"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="screen_set_vram" type="interrupt" int="0x12">
+		<constant register="ah" value="0x21"/>
+		<argument name="id" type="u8" register="al"/>
+		<argument name="offset" type="u8" register="bl">IRAM address, shifted right by 11</argument>
+	</function>
+	<function name="sprite_set_vram" type="interrupt" int="0x12">
+		<constant register="ah" value="0x22"/>
+		<argument name="offset" type="u8" register="bl">IRAM address, shifted right by 9</argument>
+	</function>
+</header>

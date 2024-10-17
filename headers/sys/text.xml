@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<header>
+	<comment>text_put_numeric() flags</comment>
+	<define name="NUM_HEXA" value="0x01">Output in hexadecimal instead of decimal</define>
+	<define name="NUM_PADSPACE" value="0x00">Pad using spaces</define>
+	<define name="NUM_PADZERO" value="0x02">Pad using zeroes</define>
+	<define name="NUM_ALIGN_RIGHT" value="0x00">Align to right</define>
+	<define name="NUM_ALIGN_LEFT" value="0x04">Align to left</define>
+	<define name="NUM_SIGNED" value="0x08">Number is signed instead of unsigned</define>
+	<define name="NUM_STORE" value="0x30">Output to buffer instead of text window</define>
+
+	<comment>Text modes</comment>
+	<define name="TEXT_MODE_ANK" value="0">ASCII</define>
+	<define name="TEXT_MODE_ANK_SJIS" value="1">ASCII/Shift-JIS</define>
+	<define name="TEXT_MODE_SJIS" value="2">Shift-JIS</define>
+
+	<comment>Useful constants</comment>
+	<define name="TEXT_SCREEN_WIDTH" value="28"/>
+	<define name="TEXT_SCREEN_HEIGHT" value="18"/>
+
+	<function name="text_screen_init" type="interrupt" int="0x13">
+		<constant register="ah" value="0x00"/>
+	</function>
+	<function name="text_window_init" type="interrupt" int="0x13">
+		<constant register="ah" value="0x01"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<argument name="width" type="u8" register="cl"/>
+		<argument name="height" type="u8" register="ch"/>
+		<argument name="base" type="u16" register="dx">Starting tile index</argument>
+	</function>
+	<function name="text_set_mode" type="interrupt" int="0x13">
+		<constant register="ah" value="0x02"/>
+		<argument name="value" type="u16" register="bx"/>
+	</function>
+	<function name="text_get_mode" type="interrupt" int="0x13">
+		<constant register="ah" value="0x03"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="text_put_char" type="interrupt" int="0x13">
+		<constant register="ah" value="0x04"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<argument name="ch" type="u16" register="cx"/>
+	</function>
+	<function name="text_put_string" type="interrupt" int="0x13">
+		<constant register="ah" value="0x05"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<argument name="str" type="char*" const="1" register="ds:dx"/>
+	</function>
+	<function name="text_put_substring" type="interrupt" int="0x13">
+		<constant register="ah" value="0x06"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<argument name="str" type="char*" const="1" register="ds:dx"/>
+		<argument name="length" type="u16" register="cx"/>
+	</function>
+	<function name="text_put_numeric" type="interrupt" int="0x13">
+		<constant register="ah" value="0x07"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<argument name="width" type="u8" register="cl"/>
+		<argument name="flags" type="u8" register="ch"/>
+		<argument name="value" type="u16" register="dx"/>
+	</function>
+	<function name="text_fill_char" type="interrupt" int="0x13">
+		<constant register="ah" value="0x08"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<argument name="length" type="u16" register="cx"/>
+		<argument name="ch" type="u16" register="dx"/>
+	</function>
+	<function name="text_set_palette" type="interrupt" int="0x13">
+		<constant register="ah" value="0x09"/>
+		<argument name="index" type="u16" register="bx"/>
+	</function>
+	<function name="text_get_palette" type="interrupt" int="0x13">
+		<constant register="ah" value="0x0A"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="text_set_ank_font" type="interrupt" int="0x13">
+		<constant register="ah" value="0x0B"/>
+		<argument name="start" type="u8" register="bl">Starting character code</argument>
+		<argument name="depth" type="u8" register="bh">0 = 1BPP, 1 = 2BPP</argument>
+		<argument name="count" type="u16" register="cx"/>
+		<argument name="data" type="void*" const="1" register="ds:dx"/>
+	</function>
+	<!-- TODO: text_reset_ank_font -->
+	<!-- TODO: text_set_sjis_font -->
+	<function name="text_get_fontdata" type="interrupt" int="0x13">
+		<constant register="ah" value="0x0D"/>
+		<argument name="ch" type="u16" register="cx"/>
+		<argument name="data" type="void*" register="ds:dx"/>
+	</function>
+	<function name="text_set_screen" type="interrupt" int="0x13">
+		<constant register="ah" value="0x0E"/>
+		<argument name="id" type="u8" register="al"/>
+	</function>
+	<function name="text_get_screen" type="interrupt" int="0x13">
+		<constant register="ah" value="0x0F"/>
+		<return type="u8" register="al"/>
+	</function>
+	<function name="cursor_display" type="interrupt" int="0x13">
+		<constant register="ah" value="0x10"/>
+		<argument name="value" type="u8" register="al"/>
+	</function>
+	<function name="cursor_status" type="interrupt" int="0x13">
+		<constant register="ah" value="0x11"/>
+		<return type="u8" register="al"/>
+	</function>
+	<function name="cursor_set_location" type="interrupt" int="0x13">
+		<constant register="ah" value="0x12"/>
+		<argument name="x" type="u8" register="bl"/>
+		<argument name="y" type="u8" register="bh"/>
+		<argument name="width" type="u8" register="cl"/>
+		<argument name="height" type="u8" register="ch"/>
+	</function>
+	<function name="cursor_get_location" type="interrupt" int="0x13">
+		<constant register="ah" value="0x13"/>
+		<return type="u32" register="dx:ax"/>
+	</function>
+	<function name="cursor_set_type" type="interrupt" int="0x13">
+		<constant register="ah" value="0x14"/>
+		<argument name="palette" type="u8" register="bl"/>
+		<argument name="rate" type="u8" register="cl"/>
+	</function>
+	<function name="cursor_get_type" type="interrupt" int="0x13">
+		<constant register="ah" value="0x15"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<!-- TODO: text_printf -->
+</header>

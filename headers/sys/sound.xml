@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<header>
+	<function name="sound_init" type="interrupt" int="0x15">
+		<constant register="ah" value="0x00"/>
+	</function>
+	<function name="sound_set_channel" type="interrupt" int="0x15">
+		<constant register="ah" value="0x01"/>
+		<argument name="value" type="u16" register="bx"/>
+	</function>
+	<function name="sound_get_channel" type="interrupt" int="0x15">
+		<constant register="ah" value="0x02"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="sound_set_output" type="interrupt" int="0x15">
+		<constant register="ah" value="0x03"/>
+		<argument name="value" type="u16" register="bx"/>
+	</function>
+	<function name="sound_get_output" type="interrupt" int="0x15">
+		<constant register="ah" value="0x04"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="sound_set_wave" type="interrupt" int="0x15">
+		<constant register="ah" value="0x05"/>
+		<argument name="channel" type="u8" register="al"/>
+		<argument name="data" type="void*" const="1" register="ds:dx"/>
+	</function>
+	<function name="sound_set_pitch" type="interrupt" int="0x15">
+		<constant register="ah" value="0x06"/>
+		<argument name="channel" type="u16" register="al"/>
+		<argument name="value" type="u16" register="bx"/>
+	</function>
+	<function name="sound_get_pitch" type="interrupt" int="0x15">
+		<constant register="ah" value="0x07"/>
+		<argument name="channel" type="u16" register="al"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="sound_set_volume" type="interrupt" int="0x15">
+		<constant register="ah" value="0x08"/>
+		<argument name="channel" type="u16" register="al"/>
+		<argument name="value" type="u16" register="bx"/>
+	</function>
+	<function name="sound_get_volume" type="interrupt" int="0x15">
+		<constant register="ah" value="0x09"/>
+		<argument name="channel" type="u16" register="al"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="sound_set_sweep" type="interrupt" int="0x15">
+		<constant register="ah" value="0x0A"/>
+		<argument name="sweep" type="u8" register="bl"/>
+		<argument name="step_time" type="u8" register="cl"/>
+	</function>
+	<function name="sound_get_sweep" type="interrupt" int="0x15">
+		<constant register="ah" value="0x0B"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="sound_set_noise" type="interrupt" int="0x15">
+		<constant register="ah" value="0x0C"/>
+		<argument name="value" type="u16" register="bx"/>
+	</function>
+	<function name="sound_get_noise" type="interrupt" int="0x15">
+		<constant register="ah" value="0x0D"/>
+		<return type="u16" register="ax"/>
+	</function>
+	<function name="sound_get_random" type="interrupt" int="0x15">
+		<constant register="ah" value="0x0E"/>
+		<return type="u16" register="ax"/>
+	</function>
+
+	<define name="SOUND_VOICE_MUTE" value="0">0% volume (muted)</define>
+	<define name="SOUND_VOICE_HALF" value="2">50% volume</define>
+	<define name="SOUND_VOICE_FULL" value="3">100% volume</define>
+
+	<function name="sound_set_voice_volume">
+		<argument name="left" type="u8"/>
+		<argument name="right" type="u8"/>
+	</function>
+	<!-- TODO: sound_get_voice_volume -->
+</header>

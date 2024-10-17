@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<header>
+	<comment>Bank region names</comment>
+	<define name="BANK_SRAM" value="0"/>
+	<define name="BANK_ROM0" value="1"/>
+	<define name="BANK_ROM1" value="2"/>
+
+	<comment>SRAM banks</comment>
+	<define name="BANK_SOFTFS" value="0">RAM file storage</define>
+	<define name="BANK_USERDS1" value="1"/>
+	<define name="BANK_USERDS0" value="2"/>
+	<define name="BANK_OSWORK" value="3"/>
+
+	<comment>bank_*_map utility wrappers</comment>
+	<define name="sram_get_map()" value="bank_get_map(BANK_SRAM)"/>
+	<define name="sram_set_map(bank_id)" value="bank_get_map(BANK_SRAM, bank_id)"/>
+	<define name="rom0_get_map()" value="bank_get_map(BANK_ROM0)"/>
+	<define name="rom0_set_map(bank_id)" value="bank_get_map(BANK_ROM0, bank_id)"/>
+	<define name="rom1_get_map()" value="bank_get_map(BANK_ROM1)"/>
+	<define name="rom1_set_map(bank_id)" value="bank_get_map(BANK_ROM1, bank_id)"/>
+
+	<function name="bank_set_map" type="interrupt" int="0x18">
+		<constant register="ah" value="0x00"/>
+		<argument name="bank_type" type="u16" register="bx">Bank region</argument>
+		<argument name="bank" type="u16" register="cx">Number of bank to map to region</argument>
+	</function>
+	<function name="bank_get_map" type="interrupt" int="0x18">
+		<constant register="ah" value="0x01"/>
+		<argument name="bank_type" type="u16" register="bx">Bank region</argument>
+		<return type="u16" register="ax">Number of bank mapped to region</return>
+	</function>
+	<function name="bank_read_byte" type="interrupt" int="0x18">
+		<constant register="ah" value="0x02"/>
+		<argument name="bank_id" type="u16" register="bx">Bank ID</argument>
+		<argument name="offset" type="u16" register="dx">Offset within bank</argument>
+		<return type="u8" register="al">Byte read</return>
+	</function>
+	<function name="bank_write_byte" type="interrupt" int="0x18">
+		<constant register="ah" value="0x03"/>
+		<argument name="bank_id" type="u16" register="bx">Bank ID</argument>
+		<argument name="offset" type="u16" register="dx">Offset within bank</argument>
+		<argument name="value" type="u8" register="cl">Byte to write</argument>
+	</function>
+	<function name="bank_read_word" type="interrupt" int="0x18">
+		<constant register="ah" value="0x04"/>
+		<argument name="bank_id" type="u16" register="bx">Bank ID</argument>
+		<argument name="offset" type="u16" register="dx">Offset within bank</argument>
+		<return type="u8" register="ax">Word read</return>
+	</function>
+	<function name="bank_write_word" type="interrupt" int="0x18">
+		<constant register="ah" value="0x05"/>
+		<argument name="bank_id" type="u16" register="bx">Bank ID</argument>
+		<argument name="offset" type="u16" register="dx">Offset within bank</argument>
+		<argument name="value" type="u16" register="cx">Word to write</argument>
+	</function>
+	<function name="bank_read_block" type="interrupt" int="0x18">
+		<constant register="ah" value="0x06"/>
+		<argument name="bank_id" type="u16" register="bx">Bank ID</argument>
+		<argument name="offset" type="u16" register="dx">Offset within bank</argument>
+		<argument name="data" type="void*" register="ds:si">Output buffer</argument>
+		<argument name="length" type="u16" register="cx">Length of data to read</argument>
+	</function>
+	<function name="bank_write_block" type="interrupt" int="0x18">
+		<constant register="ah" value="0x07"/>
+		<argument name="bank_id" type="u16" register="bx">Bank ID</argument>
+		<argument name="offset" type="u16" register="dx">Offset within bank</argument>
+		<argument name="data" type="void*" const="1" register="ds:si">Input buffer</argument>
+		<argument name="length" type="u16" register="cx">Length of data to write</argument>
+	</function>
+	<function name="bank_fill_block" type="interrupt" int="0x18">
+		<constant register="ah" value="0x08"/>
+		<argument name="bank_id" type="u16" register="bx">Bank ID</argument>
+		<argument name="offset" type="u16" register="dx">Offset within bank</argument>
+		<argument name="length" type="u16" register="cx">Length of data to write</argument>
+		<argument name="value" type="u8" register="al">Byte to fill</argument>
+	</function>
+	<function name="bank_erase_flash" type="interrupt" int="0x18">
+		<constant register="ah" value="0x09"/>
+		<argument name="bank_id" type="u16" register="bx">Bank ID</argument>
+	</function>
+</header>
