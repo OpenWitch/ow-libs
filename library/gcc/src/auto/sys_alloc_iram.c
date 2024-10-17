@@ -1,6 +1,6 @@
 #include <sys/types.h>
 
-void* sys_alloc_iram(void* ptr, uint16_t size) {
+void __wf_iram* sys_alloc_iram(void* ptr, uint16_t size) {
 	uint16_t result;
 	__asm volatile (
 		"int $0x17"

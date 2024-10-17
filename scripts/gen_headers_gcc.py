@@ -4,7 +4,7 @@ import glob
 import re
 
 input_path = "headers/"
-output_path = "platform/gcc/"
+output_path = "library/gcc/"
 
 def innerText(xml):
     t = ""
@@ -33,6 +33,7 @@ def convert_type(xml):
     t = xml.attributes["type"].nodeValue
     is_far = "register" in xml.attributes and (":" in xml.attributes["register"].nodeValue)
     is_far = is_far or ("far" in xml.attributes)
+    is_iram = "iram" in xml.attributes
     if t == "s8":
         return "int8_t"
     if t == "s16":
@@ -47,7 +48,7 @@ def convert_type(xml):
         return "uint32_t"
     if t == "void*" or t == "char*" or t == "intvector_t*" or t == "ownerinfo_t*" or t == "datetime_t*":
         is_const = "const" in xml.attributes
-        return ("const " if is_const else "") + (t.replace("*", " __far*") if is_far else t)
+        return ("const " if is_const else "") + (t.replace("*", " __far*") if is_far else (t.replace("*", " __wf_iram*") if is_iram else t))
     print(f"Warning: Unknown type {t}")
     return "void*"
 

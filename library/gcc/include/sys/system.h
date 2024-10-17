@@ -133,7 +133,7 @@ static inline uint8_t sys_get_remote(void) {
 	return result;
 }
 
-static inline void* sys_alloc_iram(void* ptr, uint16_t size) {
+static inline void __wf_iram* sys_alloc_iram(void* ptr, uint16_t size) {
 	uint16_t result;
 	__asm volatile (
 		"int $0x17"
@@ -144,7 +144,7 @@ static inline void* sys_alloc_iram(void* ptr, uint16_t size) {
 	return result;
 }
 
-static inline void sys_free_iram(void* ptr) {
+static inline void sys_free_iram(void __wf_iram* ptr) {
 	uint16_t result;
 	__asm volatile (
 		"int $0x17"
@@ -154,7 +154,7 @@ static inline void sys_free_iram(void* ptr) {
 	);
 }
 
-static inline void* sys_get_my_iram(void) {
+static inline void __wf_iram* sys_get_my_iram(void) {
 	uint16_t result;
 	__asm volatile (
 		"int $0x17"

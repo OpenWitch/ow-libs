@@ -71,15 +71,15 @@
 		<constant register="ah" value="0x0F"/>
 		<argument name="ptr" type="void*" register="bx"/>
 		<argument name="size" type="u16" register="cx"/>
-		<return type="void*" register="ax"/>
+		<return type="void*" iram="1" register="ax"/>
 	</function>
 	<function name="sys_free_iram" type="interrupt" int="0x17">
 		<constant register="ah" value="0x10"/>
-		<argument name="ptr" type="void*" register="bx"/>
+		<argument name="ptr" type="void*" iram="1" register="bx"/>
 	</function>
 	<function name="sys_get_my_iram" type="interrupt" int="0x17">
 		<constant register="ah" value="0x11"/>
-		<return type="void*" register="ax"/>
+		<return type="void*" iram="1" register="ax"/>
 	</function>
 	<function name="sys_get_version" type="interrupt" int="0x17">
 		<constant register="ah" value="0x12"/>

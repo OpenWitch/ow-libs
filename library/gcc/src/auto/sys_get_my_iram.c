@@ -1,6 +1,6 @@
 #include <sys/types.h>
 
-void* sys_get_my_iram(void) {
+void __wf_iram* sys_get_my_iram(void) {
 	uint16_t result;
 	__asm volatile (
 		"int $0x17"
