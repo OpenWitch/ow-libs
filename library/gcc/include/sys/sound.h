@@ -5,6 +5,9 @@
 
 /* Begin auto-generated section */
 
+/**
+ * Initialize sound system.
+ */
 static inline void sound_init(void) {
 	uint16_t result;
 	__asm volatile (
@@ -162,7 +165,18 @@ static inline uint16_t sound_get_random(void) {
 /* 100% volume */
 #define SOUND_VOICE_FULL 3
 
+/**
+ * Set channel 2 PCM volume.
+ * @param left Left channel volume
+ * @param right Right channel volume
+ */
 void sound_set_voice_volume(uint8_t left, uint8_t right);
+
+/**
+ * Get channel 2 PCM volume.
+ * @return Bits 0-1 contain the right channel volume; bits 2-3 contain the left channel volume
+ */
+uint8_t sound_get_voice_volume(void);
 
 /* End auto-generated section */
 

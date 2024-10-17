@@ -46,6 +46,10 @@ static inline void comm_close(void) {
 	);
 }
 
+/**
+ * @param ch Character to send
+ * @return Zero on success, negative on error
+ */
 static inline int16_t comm_send_char(uint8_t ch) {
 	uint16_t result;
 	__asm volatile (
@@ -57,6 +61,10 @@ static inline int16_t comm_send_char(uint8_t ch) {
 	return result;
 }
 
+/**
+ * Receive a character using the default timeout.
+ * @return Character read on success, negative on error
+ */
 static inline int16_t comm_receive_char(void) {
 	uint16_t result;
 	__asm volatile (
@@ -68,6 +76,11 @@ static inline int16_t comm_receive_char(void) {
 	return result;
 }
 
+/**
+ * Receive a character using an user-provided timeout.
+ * @param timeout Timeout, in frames
+ * @return Character read on success, negative on error
+ */
 static inline int16_t comm_receive_with_timeout(uint16_t timeout) {
 	uint16_t result;
 	__asm volatile (
@@ -79,12 +92,31 @@ static inline int16_t comm_receive_with_timeout(uint16_t timeout) {
 	return result;
 }
 
+/**
+ * @param str Input string to send
+ * @return Return code
+ */
 int16_t comm_send_string(const char __far* str);
 
+/**
+ * @param data Data to send
+ * @param length Length of data to send
+ * @return Return code
+ */
 int16_t comm_send_block(const void __far* data, uint16_t length);
 
+/**
+ * @param data Data buffer
+ * @param length Length of buffer, in bytes
+ * @param out_length Length of data received, in bytes
+ * @return Return code
+ */
 int16_t comm_receive_block(void __far* data, uint16_t length, int16_t __far* out_length);
 
+/**
+ * @param recv_timeout Receive timeout
+ * @param send_timeout Send timeout
+ */
 static inline void comm_set_timeout(uint16_t recv_timeout, uint16_t send_timeout) {
 	uint16_t result;
 	__asm volatile (
@@ -95,6 +127,9 @@ static inline void comm_set_timeout(uint16_t recv_timeout, uint16_t send_timeout
 	);
 }
 
+/**
+ * @param value New baud rate
+ */
 static inline void comm_set_baudrate(uint16_t value) {
 	uint16_t result;
 	__asm volatile (
@@ -105,6 +140,9 @@ static inline void comm_set_baudrate(uint16_t value) {
 	);
 }
 
+/**
+ * @return Current baud rate
+ */
 static inline uint16_t comm_get_baudrate(void) {
 	uint16_t result;
 	__asm volatile (
@@ -116,6 +154,9 @@ static inline uint16_t comm_get_baudrate(void) {
 	return result;
 }
 
+/**
+ * @param value New cancel key combination
+ */
 static inline void comm_set_cancel_key(uint16_t value) {
 	uint16_t result;
 	__asm volatile (
@@ -126,6 +167,9 @@ static inline void comm_set_cancel_key(uint16_t value) {
 	);
 }
 
+/**
+ * @return Current cancel key combination
+ */
 static inline uint16_t comm_get_cancel_key(void) {
 	uint16_t result;
 	__asm volatile (

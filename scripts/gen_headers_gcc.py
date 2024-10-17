@@ -15,8 +15,11 @@ def innerText(xml):
             t += innerText(node)
     return t
 
-def comment_to_lines(xml):
-    return [x.strip() for x in innerText(xml).splitlines()]
+def comment_to_lines(xml, prefix=''):
+    result = [x.strip() for x in innerText(xml).splitlines()]
+    if len(result) > 0 and len(prefix) > 0:
+        result[0] = prefix + result[0]
+    return result
 
 def print_long_comment(c, f):
     if len(c) == 0:
@@ -107,6 +110,36 @@ def combine_registers(register_map, low, high, joined):
     elif low in register_map:
         register_map[joined] = register_map[low]
         del register_map[low]
+
+def write_doxygen_function_comment(f, output_file):
+    comment_node = None
+    argument_nodes = []
+    return_node = None
+
+    for node in f.childNodes:
+        if node.nodeType != Node.ELEMENT_NODE:
+            continue
+        if node.nodeName == "return" and return_node is None:
+            return_node = node
+        elif node.nodeName == "argument" or node.nodeName == "return":
+            argument_nodes.append(node)
+        elif node.nodeName == "comment":
+            comment_node = node
+
+    lines = []
+    if comment_node is not None:
+        lines += comment_to_lines(comment_node)
+    for node in argument_nodes:
+        name = node.attributes["name"].nodeValue
+        lines += comment_to_lines(node, f"@param {name} ")
+    if return_node is not None:
+        lines += comment_to_lines(return_node, "@return ")
+
+    if len(lines) > 0:
+        output_file.write("/**\n")
+        for line in lines:
+            output_file.write(f" * {line}\n")
+        output_file.write(" */\n")
 
 def write_function(f, output_file, include_implementation=False):
     return_node = None
@@ -246,7 +279,7 @@ def write_header(filename, xml, output_file):
             print_long_comment(comment_to_lines(node), output_file)
             output_file.write(f"#define {node.attributes['name'].nodeValue} {node.attributes['value'].nodeValue}\n")
         elif node.nodeName == "function":
-            # TODO: Output <comment> tag
+            write_doxygen_function_comment(node, output_file)
             # Generate function declaration
             if can_use_inline_implementation(node):
                 output_file.write("static inline ")

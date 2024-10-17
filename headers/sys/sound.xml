@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <header>
 	<function name="sound_init" type="interrupt" int="0x15">
+		<comment>Initialize sound system.</comment>
 		<constant register="ah" value="0x00"/>
 	</function>
 	<function name="sound_set_channel" type="interrupt" int="0x15">
@@ -71,8 +72,12 @@
 	<define name="SOUND_VOICE_FULL" value="3">100% volume</define>
 
 	<function name="sound_set_voice_volume">
-		<argument name="left" type="u8"/>
-		<argument name="right" type="u8"/>
+		<comment>Set channel 2 PCM volume.</comment>
+		<argument name="left" type="u8">Left channel volume</argument>
+		<argument name="right" type="u8">Right channel volume</argument>
 	</function>
-	<!-- TODO: sound_get_voice_volume -->
+	<function name="sound_get_voice_volume">
+		<comment>Get channel 2 PCM volume.</comment>
+		<return type="u8">Bits 0-1 contain the right channel volume; bits 2-3 contain the left channel volume</return>
+	</function>
 </header>

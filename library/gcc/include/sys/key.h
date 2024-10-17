@@ -27,6 +27,10 @@
 #define KEY_DOWN2 KEY_Y3
 #define KEY_LEFT2 KEY_Y4
 
+/**
+ * Check for currently held keys.
+ * @return Mask of currently held keys
+ */
 static inline uint16_t key_press_check(void) {
 	uint16_t result;
 	__asm volatile (
@@ -38,6 +42,10 @@ static inline uint16_t key_press_check(void) {
 	return result;
 }
 
+/**
+ * Check for newly pressed keys.
+ * @return Mask of newly pressed keys
+ */
 static inline uint16_t key_hit_check(void) {
 	uint16_t result;
 	__asm volatile (
@@ -49,6 +57,10 @@ static inline uint16_t key_hit_check(void) {
 	return result;
 }
 
+/**
+ * Wait until a key is pressed.
+ * @return Mask of newly pressed keys
+ */
 static inline uint16_t key_wait(void) {
 	uint16_t result;
 	__asm volatile (
@@ -81,6 +93,10 @@ static inline uint16_t key_get_repeat(void) {
 	return result;
 }
 
+/**
+ * Check for newly pressed keys, taking into account the repeat delay/rate configuration.
+ * @return Mask of newly pressed keys
+ */
 static inline uint16_t key_hit_check_with_repeat(void) {
 	uint16_t result;
 	__asm volatile (

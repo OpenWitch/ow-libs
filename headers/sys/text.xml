@@ -19,21 +19,32 @@
 	<define name="TEXT_SCREEN_HEIGHT" value="18"/>
 
 	<function name="text_screen_init" type="interrupt" int="0x13">
+		<comment>Initializes a text window (see INT $13/AH=$01) with the following default settings: 
+- X, Y = 0, 0
+- width, height = 28, 18
+- base tile = 512 - font tile count (in ASCII mode)
+- base tile = 512 - (width x height) (in Shift-JIS and mixed modes)</comment>
 		<constant register="ah" value="0x00"/>
 	</function>
 	<function name="text_window_init" type="interrupt" int="0x13">
+		<comment>Initializes a text window on the configured screen.
+This requires the following number of tiles, starting from the base:
+- font tile count (in ASCII mode)
+- width x height (in Shift-JIS and mixed modes)</comment>
 		<constant register="ah" value="0x01"/>
-		<argument name="x" type="u8" register="bl"/>
-		<argument name="y" type="u8" register="bh"/>
-		<argument name="width" type="u8" register="cl"/>
-		<argument name="height" type="u8" register="ch"/>
-		<argument name="base" type="u16" register="dx">Starting tile index</argument>
+		<argument name="x" type="u8" register="bl">Starting X offset, in tiles.</argument>
+		<argument name="y" type="u8" register="bh">Starting Y offset, in tiles.</argument>
+		<argument name="width" type="u8" register="cl">Width of text window, in tiles.</argument>
+		<argument name="height" type="u8" register="ch">Height of text window, in tiles.</argument>
+		<argument name="base" type="u16" register="dx">Base tile index.</argument>
 	</function>
 	<function name="text_set_mode" type="interrupt" int="0x13">
+		<comment>Set text mode.</comment>
 		<constant register="ah" value="0x02"/>
 		<argument name="value" type="u16" register="bx"/>
 	</function>
 	<function name="text_get_mode" type="interrupt" int="0x13">
+		<comment>Get text mode.</comment>
 		<constant register="ah" value="0x03"/>
 		<return type="u16" register="ax"/>
 	</function>
@@ -72,42 +83,44 @@
 		<argument name="ch" type="u16" register="dx"/>
 	</function>
 	<function name="text_set_palette" type="interrupt" int="0x13">
+		<comment>Set the palette used by printed text.</comment>
 		<constant register="ah" value="0x09"/>
-		<argument name="index" type="u16" register="bx"/>
+		<argument name="index" type="u16" register="bx">Palette index.</argument>
 	</function>
 	<function name="text_get_palette" type="interrupt" int="0x13">
+		<comment>Get the palette used by printed text.</comment>
 		<constant register="ah" value="0x0A"/>
-		<return type="u16" register="ax"/>
+		<return type="u16" register="ax">Palette index.</return>
 	</function>
 	<function name="text_set_ank_font" type="interrupt" int="0x13">
 		<constant register="ah" value="0x0B"/>
 		<argument name="start" type="u8" register="bl">Starting character code</argument>
 		<argument name="depth" type="u8" register="bh">0 = 1BPP, 1 = 2BPP</argument>
-		<argument name="count" type="u16" register="cx"/>
-		<argument name="data" type="void*" const="1" register="ds:dx"/>
+		<argument name="count" type="u16" register="cx">Number of characters (tiles)</argument>
+		<argument name="data" type="void*" const="1" register="ds:dx">Input buffer containing font data</argument>
 	</function>
 	<!-- TODO: text_reset_ank_font -->
 	<!-- TODO: text_set_sjis_font -->
 	<function name="text_get_fontdata" type="interrupt" int="0x13">
 		<constant register="ah" value="0x0D"/>
-		<argument name="ch" type="u16" register="cx"/>
-		<argument name="data" type="void*" register="ds:dx"/>
+		<argument name="ch" type="u16" register="cx">Character code</argument>
+		<argument name="data" type="void*" register="ds:dx">Output buffer for font data</argument>
 	</function>
 	<function name="text_set_screen" type="interrupt" int="0x13">
 		<constant register="ah" value="0x0E"/>
-		<argument name="id" type="u8" register="al"/>
+		<argument name="id" type="u8" register="al">Screen ID</argument>
 	</function>
 	<function name="text_get_screen" type="interrupt" int="0x13">
 		<constant register="ah" value="0x0F"/>
-		<return type="u8" register="al"/>
+		<return type="u8" register="al">Screen ID</return>
 	</function>
 	<function name="cursor_display" type="interrupt" int="0x13">
 		<constant register="ah" value="0x10"/>
-		<argument name="value" type="u8" register="al"/>
+		<argument name="value" type="u8" register="al">Cursor status (0 - disabled, 1 - enabled)</argument>
 	</function>
 	<function name="cursor_status" type="interrupt" int="0x13">
 		<constant register="ah" value="0x11"/>
-		<return type="u8" register="al"/>
+		<return type="u8" register="al">Cursor status (bit 0 - enabled?, bit 1 - currently visible?)</return>
 	</function>
 	<function name="cursor_set_location" type="interrupt" int="0x13">
 		<constant register="ah" value="0x12"/>
@@ -122,8 +135,8 @@
 	</function>
 	<function name="cursor_set_type" type="interrupt" int="0x13">
 		<constant register="ah" value="0x14"/>
-		<argument name="palette" type="u8" register="bl"/>
-		<argument name="rate" type="u8" register="cl"/>
+		<argument name="palette" type="u8" register="bl">Palette index used by cursor area when visible</argument>
+		<argument name="rate" type="u8" register="cl">Blinking rate, in frames; 0 - always visible</argument>
 	</function>
 	<function name="cursor_get_type" type="interrupt" int="0x13">
 		<constant register="ah" value="0x15"/>

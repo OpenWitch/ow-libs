@@ -33,6 +33,13 @@
 #define TEXT_SCREEN_WIDTH 28
 #define TEXT_SCREEN_HEIGHT 18
 
+/**
+ * Initializes a text window (see INT $13/AH=$01) with the following default settings:
+ * - X, Y = 0, 0
+ * - width, height = 28, 18
+ * - base tile = 512 - font tile count (in ASCII mode)
+ * - base tile = 512 - (width x height) (in Shift-JIS and mixed modes)
+ */
 static inline void text_screen_init(void) {
 	uint16_t result;
 	__asm volatile (
@@ -43,6 +50,17 @@ static inline void text_screen_init(void) {
 	);
 }
 
+/**
+ * Initializes a text window on the configured screen.
+ * This requires the following number of tiles, starting from the base:
+ * - font tile count (in ASCII mode)
+ * - width x height (in Shift-JIS and mixed modes)
+ * @param x Starting X offset, in tiles.
+ * @param y Starting Y offset, in tiles.
+ * @param width Width of text window, in tiles.
+ * @param height Height of text window, in tiles.
+ * @param base Base tile index.
+ */
 static inline void text_window_init(uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint16_t base) {
 	uint16_t result;
 	__asm volatile (
@@ -53,6 +71,9 @@ static inline void text_window_init(uint8_t x, uint8_t y, uint8_t width, uint8_t
 	);
 }
 
+/**
+ * Set text mode.
+ */
 static inline void text_set_mode(uint16_t value) {
 	uint16_t result;
 	__asm volatile (
@@ -63,6 +84,9 @@ static inline void text_set_mode(uint16_t value) {
 	);
 }
 
+/**
+ * Get text mode.
+ */
 static inline uint16_t text_get_mode(void) {
 	uint16_t result;
 	__asm volatile (
@@ -108,6 +132,10 @@ static inline void text_fill_char(uint8_t x, uint8_t y, uint16_t length, uint16_
 	);
 }
 
+/**
+ * Set the palette used by printed text.
+ * @param index Palette index.
+ */
 static inline void text_set_palette(uint16_t index) {
 	uint16_t result;
 	__asm volatile (
@@ -118,6 +146,10 @@ static inline void text_set_palette(uint16_t index) {
 	);
 }
 
+/**
+ * Get the palette used by printed text.
+ * @return Palette index.
+ */
 static inline uint16_t text_get_palette(void) {
 	uint16_t result;
 	__asm volatile (
@@ -129,10 +161,23 @@ static inline uint16_t text_get_palette(void) {
 	return result;
 }
 
+/**
+ * @param start Starting character code
+ * @param depth 0 = 1BPP, 1 = 2BPP
+ * @param count Number of characters (tiles)
+ * @param data Input buffer containing font data
+ */
 void text_set_ank_font(uint8_t start, uint8_t depth, uint16_t count, const void __far* data);
 
+/**
+ * @param ch Character code
+ * @param data Output buffer for font data
+ */
 void text_get_fontdata(uint16_t ch, void __far* data);
 
+/**
+ * @param id Screen ID
+ */
 static inline void text_set_screen(uint8_t id) {
 	uint16_t result;
 	__asm volatile (
@@ -143,6 +188,9 @@ static inline void text_set_screen(uint8_t id) {
 	);
 }
 
+/**
+ * @return Screen ID
+ */
 static inline uint8_t text_get_screen(void) {
 	uint16_t result;
 	__asm volatile (
@@ -154,6 +202,9 @@ static inline uint8_t text_get_screen(void) {
 	return result;
 }
 
+/**
+ * @param value Cursor status (0 - disabled, 1 - enabled)
+ */
 static inline void cursor_display(uint8_t value) {
 	uint16_t result;
 	__asm volatile (
@@ -164,6 +215,9 @@ static inline void cursor_display(uint8_t value) {
 	);
 }
 
+/**
+ * @return Cursor status (bit 0 - enabled?, bit 1 - currently visible?)
+ */
 static inline uint8_t cursor_status(void) {
 	uint16_t result;
 	__asm volatile (
@@ -196,6 +250,10 @@ static inline uint32_t cursor_get_location(void) {
 	return result;
 }
 
+/**
+ * @param palette Palette index used by cursor area when visible
+ * @param rate Blinking rate, in frames; 0 - always visible
+ */
 static inline void cursor_set_type(uint8_t palette, uint8_t rate) {
 	uint16_t result;
 	__asm volatile (

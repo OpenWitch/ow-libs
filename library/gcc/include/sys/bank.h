@@ -25,6 +25,10 @@
 #define rom1_get_map() bank_get_map(BANK_ROM1)
 #define rom1_set_map(bank_id) bank_get_map(BANK_ROM1, bank_id)
 
+/**
+ * @param bank_type Bank region
+ * @param bank Number of bank to map to region
+ */
 static inline void bank_set_map(uint16_t bank_type, uint16_t bank) {
 	uint16_t result;
 	__asm volatile (
@@ -35,6 +39,10 @@ static inline void bank_set_map(uint16_t bank_type, uint16_t bank) {
 	);
 }
 
+/**
+ * @param bank_type Bank region
+ * @return Number of bank mapped to region
+ */
 static inline uint16_t bank_get_map(uint16_t bank_type) {
 	uint16_t result;
 	__asm volatile (
@@ -46,6 +54,11 @@ static inline uint16_t bank_get_map(uint16_t bank_type) {
 	return result;
 }
 
+/**
+ * @param bank_id Bank ID
+ * @param offset Offset within bank
+ * @return Byte read
+ */
 static inline uint8_t bank_read_byte(uint16_t bank_id, uint16_t offset) {
 	uint16_t result;
 	__asm volatile (
@@ -57,6 +70,11 @@ static inline uint8_t bank_read_byte(uint16_t bank_id, uint16_t offset) {
 	return result;
 }
 
+/**
+ * @param bank_id Bank ID
+ * @param offset Offset within bank
+ * @param value Byte to write
+ */
 static inline void bank_write_byte(uint16_t bank_id, uint16_t offset, uint8_t value) {
 	uint16_t result;
 	__asm volatile (
@@ -67,6 +85,11 @@ static inline void bank_write_byte(uint16_t bank_id, uint16_t offset, uint8_t va
 	);
 }
 
+/**
+ * @param bank_id Bank ID
+ * @param offset Offset within bank
+ * @return Word read
+ */
 static inline uint8_t bank_read_word(uint16_t bank_id, uint16_t offset) {
 	uint16_t result;
 	__asm volatile (
@@ -78,6 +101,11 @@ static inline uint8_t bank_read_word(uint16_t bank_id, uint16_t offset) {
 	return result;
 }
 
+/**
+ * @param bank_id Bank ID
+ * @param offset Offset within bank
+ * @param value Word to write
+ */
 static inline void bank_write_word(uint16_t bank_id, uint16_t offset, uint16_t value) {
 	uint16_t result;
 	__asm volatile (
@@ -88,10 +116,28 @@ static inline void bank_write_word(uint16_t bank_id, uint16_t offset, uint16_t v
 	);
 }
 
+/**
+ * @param bank_id Bank ID
+ * @param offset Offset within bank
+ * @param data Output buffer
+ * @param length Length of data to read
+ */
 void bank_read_block(uint16_t bank_id, uint16_t offset, void __far* data, uint16_t length);
 
+/**
+ * @param bank_id Bank ID
+ * @param offset Offset within bank
+ * @param data Input buffer
+ * @param length Length of data to write
+ */
 void bank_write_block(uint16_t bank_id, uint16_t offset, const void __far* data, uint16_t length);
 
+/**
+ * @param bank_id Bank ID
+ * @param offset Offset within bank
+ * @param length Length of data to write
+ * @param value Byte to fill
+ */
 static inline void bank_fill_block(uint16_t bank_id, uint16_t offset, uint16_t length, uint8_t value) {
 	uint16_t result;
 	__asm volatile (
@@ -102,6 +148,9 @@ static inline void bank_fill_block(uint16_t bank_id, uint16_t offset, uint16_t l
 	);
 }
 
+/**
+ * @param bank_id Bank ID
+ */
 static inline void bank_erase_flash(uint16_t bank_id) {
 	uint16_t result;
 	__asm volatile (

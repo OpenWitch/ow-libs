@@ -379,6 +379,9 @@ static inline uint16_t lcd_get_sleep(void) {
 	return result;
 }
 
+/**
+ * @param offset IRAM address, shifted right by 11
+ */
 static inline void screen_set_vram(uint8_t id, uint8_t offset) {
 	uint16_t result;
 	__asm volatile (
@@ -389,6 +392,9 @@ static inline void screen_set_vram(uint8_t id, uint8_t offset) {
 	);
 }
 
+/**
+ * @param offset IRAM address, shifted right by 9
+ */
 static inline void sprite_set_vram(uint8_t offset) {
 	uint16_t result;
 	__asm volatile (
