@@ -19,7 +19,7 @@
 	<define name="TEXT_SCREEN_HEIGHT" value="18"/>
 
 	<function name="text_screen_init" type="interrupt" int="0x13">
-		<comment>Initializes a text window (see INT $13/AH=$01) with the following default settings: 
+		<comment>Initializes a text window with the following default settings: 
 - X, Y = 0, 0
 - width, height = 28, 18
 - base tile = 512 - font tile count (in ASCII mode)

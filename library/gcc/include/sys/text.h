@@ -34,7 +34,7 @@
 #define TEXT_SCREEN_HEIGHT 18
 
 /**
- * Initializes a text window (see INT $13/AH=$01) with the following default settings:
+ * Initializes a text window with the following default settings:
  * - X, Y = 0, 0
  * - width, height = 28, 18
  * - base tile = 512 - font tile count (in ASCII mode)
