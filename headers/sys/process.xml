@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<header>
+	<define name="E_PROC_SUCCESS" value="0"/>
+	<define name="E_PROC_CANTLOAD" value="0xFFFF"/>
+
+	<define name="S_PCB_NOT_USED" value="0"/>
+	<define name="S_PCB_LOAD" value="1"/>
+	<define name="S_PCB_RUN" value="2"/>
+	<define name="S_PCB_SUSPEND" value="3"/>
+
+	<define name="MAXPROCESSES" value="3"/>
+</header>

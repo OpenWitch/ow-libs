@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<header>
+	<comment>File access modes</comment>
+	<define name="O_RDONLY" value="FMODE_R"/>
+	<define name="O_WRONLY" value="FMODE_W"/>
+	<define name="O_RDWR" value="(FMODE_R | FMODE_W)"/>
+</header>

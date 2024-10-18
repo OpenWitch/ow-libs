@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<header>
+	<define name="TMPBUFSZ" value="128"/>
+	<define name="XMODEMBUFSZ" value="TMPBUFSZ"/>
+	<define name="MAXFILES" value="16"/>
+	<define name="MAXSTREAMILS" value="MAXFILES"/>
+
+	<comment>File table defines</comment>
+	<define name="ROOTFS_NUM_ENTRIES" value="16"/>
+	<define name="RAM0FS_NUM_ENTRIES" value="64"/>
+	<define name="ROM0FS_NUM_ENTRIES" value="128"/>
+</header>
