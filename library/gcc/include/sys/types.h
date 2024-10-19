@@ -1,8 +1,13 @@
 #ifndef __LIBWW_SYS_TYPES_H__
 #define __LIBWW_SYS_TYPES_H__
 
+// This type header is written with the Wonderful toolchain libc in mind;
+// as such, we don't duplicate types defined in the C standard.
+
+#include <stdarg.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <time.h>
 #include <wonderful.h>
 
 typedef unsigned short ushort;
@@ -20,6 +25,7 @@ typedef int16_t BOOL;
 #define far __far
 #define near
 
+// FreyaBIOS types
 struct intvector {
     void (*callback)(void);
     uint16_t cs;
@@ -48,5 +54,22 @@ struct datetime {
     uint8_t second;
 };
 typedef struct datetime datetime_t;
+
+// FreyaOS system types
+typedef uint16_t pid_t;
+typedef int32_t flen_t;
+typedef int32_t fpos_t;
+typedef uint16_t fmode_t;
+typedef uint32_t appid_t;
+
+typedef union {
+    void __far *fp;
+    uint32_t ul;
+    struct {
+        uint16_t off;
+        uint16_t seg;
+    } w;
+} address_t;
+typedef address_t floc_t;
 
 #endif /* __LIBWW_SYS_TYPES_H__ */
