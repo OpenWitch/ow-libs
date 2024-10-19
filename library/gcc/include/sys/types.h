@@ -45,13 +45,13 @@ struct ownerinfo {
 typedef struct ownerinfo ownerinfo_t;
 
 struct datetime {
-    uint8_t year;
-    uint8_t month;
-    uint8_t date;
-    uint8_t day_of_week;
-    uint8_t hour;
-    uint8_t minute;
-    uint8_t second;
+    uint8_t year; /* 0 = year 2000 */
+    uint8_t month; /* 1 - 12 */
+    uint8_t date; /* 1 - 31 */
+    uint8_t day_of_week; /* 0 - 6, 0 = Sunday, 1 = Monday, 6 = Saturday */
+    uint8_t hour; /* 0 - 23 */
+    uint8_t minute; /* 0 - 59 */
+    uint8_t second; /* 0 - 59 */
 };
 typedef struct datetime datetime_t;
 
