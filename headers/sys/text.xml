@@ -7,7 +7,7 @@
 	<define name="NUM_ALIGN_RIGHT" value="0x00">Align to right</define>
 	<define name="NUM_ALIGN_LEFT" value="0x04">Align to left</define>
 	<define name="NUM_SIGNED" value="0x08">Number is signed instead of unsigned</define>
-	<define name="NUM_STORE" value="0x30">Output to buffer instead of text window</define>
+	<define name="NUM_STORE" value="0x80">Output to buffer instead of text window</define>
 
 	<comment>Text modes</comment>
 	<define name="TEXT_MODE_ANK" value="0">ASCII</define>

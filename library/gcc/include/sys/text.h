@@ -19,7 +19,7 @@
 /* Number is signed instead of unsigned */
 #define NUM_SIGNED 0x08
 /* Output to buffer instead of text window */
-#define NUM_STORE 0x30
+#define NUM_STORE 0x80
 
 /* Text modes */
 /* ASCII */
