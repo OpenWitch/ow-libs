@@ -22,16 +22,16 @@
 	<define name="rtc_set_date(value)" value="rtc_set_datetime(RTC_DATE, value)"/>
 	<define name="rtc_set_day_of_week(value)" value="rtc_set_datetime(RTC_DAY_OF_WEEK, value)"/>
 	<define name="rtc_set_hour(value)" value="rtc_set_datetime(RTC_HOUR, value)"/>
-	<define name="rtc_set_min(value)" value="rtc_set_datetime(RTC_MIN, value)"/>
-	<define name="rtc_set_sec(value)" value="rtc_set_datetime(RTC_SEC, value)"/>
+	<define name="rtc_set_minute(value)" value="rtc_set_datetime(RTC_MIN, value)"/>
+	<define name="rtc_set_second(value)" value="rtc_set_datetime(RTC_SEC, value)"/>
 
 	<define name="rtc_get_year()" value="rtc_get_datetime(RTC_YEAR)"/>
 	<define name="rtc_get_month()" value="rtc_get_datetime(RTC_MONTH)"/>
 	<define name="rtc_get_date()" value="rtc_get_datetime(RTC_DATE)"/>
 	<define name="rtc_get_day_of_week()" value="rtc_get_datetime(RTC_DAY_OF_WEEK)"/>
 	<define name="rtc_get_hour()" value="rtc_get_datetime(RTC_HOUR)"/>
-	<define name="rtc_get_min()" value="rtc_get_datetime(RTC_MIN)"/>
-	<define name="rtc_get_sec()" value="rtc_get_datetime(RTC_SEC)"/>
+	<define name="rtc_get_minute()" value="rtc_get_datetime(RTC_MIN)"/>
+	<define name="rtc_get_second()" value="rtc_get_datetime(RTC_SEC)"/>
 
 	<function name="rtc_reset" type="interrupt" int="0x16">
 		<constant register="ah" value="0x00"/>

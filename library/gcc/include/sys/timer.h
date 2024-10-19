@@ -27,16 +27,16 @@
 #define rtc_set_date(value) rtc_set_datetime(RTC_DATE, value)
 #define rtc_set_day_of_week(value) rtc_set_datetime(RTC_DAY_OF_WEEK, value)
 #define rtc_set_hour(value) rtc_set_datetime(RTC_HOUR, value)
-#define rtc_set_min(value) rtc_set_datetime(RTC_MIN, value)
-#define rtc_set_sec(value) rtc_set_datetime(RTC_SEC, value)
+#define rtc_set_minute(value) rtc_set_datetime(RTC_MIN, value)
+#define rtc_set_second(value) rtc_set_datetime(RTC_SEC, value)
 
 #define rtc_get_year() rtc_get_datetime(RTC_YEAR)
 #define rtc_get_month() rtc_get_datetime(RTC_MONTH)
 #define rtc_get_date() rtc_get_datetime(RTC_DATE)
 #define rtc_get_day_of_week() rtc_get_datetime(RTC_DAY_OF_WEEK)
 #define rtc_get_hour() rtc_get_datetime(RTC_HOUR)
-#define rtc_get_min() rtc_get_datetime(RTC_MIN)
-#define rtc_get_sec() rtc_get_datetime(RTC_SEC)
+#define rtc_get_minute() rtc_get_datetime(RTC_MIN)
+#define rtc_get_second() rtc_get_datetime(RTC_SEC)
 
 static inline void rtc_reset(void) {
 	uint16_t result;
