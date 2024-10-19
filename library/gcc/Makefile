@@ -21,7 +21,7 @@ DEFINES		:=
 # Libraries
 # ---------
 
-LIBDIRS		:= $(WF_TARGET_DIR)
+LIBDIRS		:= $(WF_ARCH_LIBDIRS)
 
 # Build artifacts
 # ---------------
