@@ -108,11 +108,20 @@ static inline void text_put_char(uint8_t x, uint8_t y, uint16_t ch) {
 	);
 }
 
-void text_put_string(uint8_t x, uint8_t y, const char __far* str);
+/**
+ * @return Number of characters displayed.
+ */
+uint16_t text_put_string(uint8_t x, uint8_t y, const char __far* str);
 
-void text_put_substring(uint8_t x, uint8_t y, const char __far* str, uint16_t length);
+/**
+ * @return Number of characters displayed.
+ */
+uint16_t text_put_substring(uint8_t x, uint8_t y, const char __far* str, uint16_t length);
 
-static inline void text_put_numeric(uint8_t x, uint8_t y, uint8_t width, uint8_t flags, uint16_t value) {
+/**
+ * @return Number of characters displayed.
+ */
+static inline uint16_t text_put_numeric(uint8_t x, uint8_t y, uint8_t width, uint8_t flags, uint16_t value) {
 	uint16_t result;
 	__asm volatile (
 		"int $0x13"
@@ -120,6 +129,7 @@ static inline void text_put_numeric(uint8_t x, uint8_t y, uint8_t width, uint8_t
 		: "d" (value), "b" (((y << 8) | x)), "c" (((flags << 8) | width)), "Rah" ((uint8_t) 0x07)
 		: "cc", "memory"
 	);
+	return result;
 }
 
 static inline void text_fill_char(uint8_t x, uint8_t y, uint16_t length, uint16_t ch) {

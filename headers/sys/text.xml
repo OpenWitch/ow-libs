@@ -59,6 +59,7 @@ This requires the following number of tiles, starting from the base:
 		<argument name="x" type="u8" register="bl"/>
 		<argument name="y" type="u8" register="bh"/>
 		<argument name="str" type="char*" const="1" register="ds:dx"/>
+		<return type="u16" register="ax">Number of characters displayed.</return>
 	</function>
 	<function name="text_put_substring" type="interrupt" int="0x13">
 		<constant register="ah" value="0x06"/>
@@ -66,6 +67,7 @@ This requires the following number of tiles, starting from the base:
 		<argument name="y" type="u8" register="bh"/>
 		<argument name="str" type="char*" const="1" register="ds:dx"/>
 		<argument name="length" type="u16" register="cx"/>
+		<return type="u16" register="ax">Number of characters displayed.</return>
 	</function>
 	<function name="text_put_numeric" type="interrupt" int="0x13">
 		<constant register="ah" value="0x07"/>
@@ -74,6 +76,7 @@ This requires the following number of tiles, starting from the base:
 		<argument name="width" type="u8" register="cl"/>
 		<argument name="flags" type="u8" register="ch"/>
 		<argument name="value" type="u16" register="dx"/>
+		<return type="u16" register="ax">Number of characters displayed.</return>
 	</function>
 	<function name="text_fill_char" type="interrupt" int="0x13">
 		<constant register="ah" value="0x08"/>
