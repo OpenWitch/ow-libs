@@ -58,7 +58,7 @@
 	<function name="comm_set_timeout" type="interrupt" int="0x14">
 		<constant register="ah" value="0x08"/>
 		<argument name="recv_timeout" type="u16" register="bx">Receive timeout</argument>
-		<argument name="send_timeout" type="u16" register="bx">Send timeout</argument>
+		<argument name="send_timeout" type="u16" register="cx">Send timeout</argument>
 	</function>
 	<function name="comm_set_baudrate" type="interrupt" int="0x14">
 		<constant register="ah" value="0x09"/>
