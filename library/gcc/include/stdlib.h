@@ -7,7 +7,7 @@
 
 // The WonderWitch stdlib.h augments the libc-provided stdlib.h with some
 // additional, non-standard instructions.
-#include <_stdlib.h>
+#include_next <stdlib.h>
 
 #define min(a, b) ((a) < (b) ? (a) : (b))
 #define max(a, b) ((a) > (b) ? (a) : (b))
