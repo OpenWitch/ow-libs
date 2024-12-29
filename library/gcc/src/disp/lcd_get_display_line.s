@@ -25,8 +25,7 @@
 	.code16
 	.intel_syntax noprefix
 
-	.global wwc_get_color_mode
-wwc_get_color_mode:
-	in	al, 0x60
-	and	al, 0xE0
+	.global lcd_get_display_line
+lcd_get_display_line:
+	in	al, 0x02
 	WF_PLATFORM_RET

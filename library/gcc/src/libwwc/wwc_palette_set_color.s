@@ -20,6 +20,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <wonderful.h>
 	.arch	i186
 	.code16
 	.intel_syntax noprefix
@@ -32,4 +33,4 @@ wwc_palette_set_color:
 	shl	ax, 1
 	mov	bx, ax
 	mov	word ptr ss:[bx], cx
-	ret
+	WF_PLATFORM_RET

@@ -246,4 +246,11 @@
 		<constant register="ah" value="0x22"/>
 		<argument name="offset" type="u8" register="bl">IRAM address, shifted right by 9</argument>
 	</function>
+
+	<function name="lcd_set_interrupt_line">
+		<argument name="line" type="u8"/>
+	</function>
+	<function name="lcd_get_display_line">
+		<return type="u8"/>
+	</function>
 </header>

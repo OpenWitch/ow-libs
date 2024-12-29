@@ -20,6 +20,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <wonderful.h>
 	.arch	i186
 	.code16
 	.intel_syntax noprefix
@@ -27,4 +28,4 @@
 	.global sound_get_voice_volume
 sound_get_voice_volume:
 	in	al, 0x94
-	ret
+	WF_PLATFORM_RET

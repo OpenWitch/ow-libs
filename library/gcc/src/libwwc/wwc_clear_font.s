@@ -20,6 +20,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <wonderful.h>
 	.arch	i186
 	.code16
 	.intel_syntax noprefix
@@ -40,4 +41,4 @@ wwc_clear_font:
 	rep	movsw
 	pop	es
 	pop	di
-	ret
+	WF_PLATFORM_RET

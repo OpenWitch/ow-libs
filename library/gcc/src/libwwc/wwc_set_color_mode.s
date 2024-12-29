@@ -20,6 +20,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <wonderful.h>
 	.arch	i186
 	.code16
 	.intel_syntax noprefix
@@ -31,4 +32,4 @@ wwc_set_color_mode:
 	and	al, 0x1F
 	or	al, ah
 	out	0x60, al
-	ret
+	WF_PLATFORM_RET

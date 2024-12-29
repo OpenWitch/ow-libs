@@ -20,6 +20,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <wonderful.h>
 	.arch	i186
 	.code16
 	.intel_syntax noprefix
@@ -29,4 +30,4 @@ wwc_get_hardarch:
 	in	al, 0xa0
 	and	al, 0x02
 	shr	al, 1
-	ret
+	WF_PLATFORM_RET

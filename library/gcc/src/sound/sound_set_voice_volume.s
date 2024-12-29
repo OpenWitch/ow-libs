@@ -20,6 +20,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <wonderful.h>
 	.arch	i186
 	.code16
 	.intel_syntax noprefix
@@ -29,4 +30,4 @@ sound_set_voice_volume:
 	shl	al, 2
 	or	al, dl
 	out	0x94, al
-	ret
+	WF_PLATFORM_RET

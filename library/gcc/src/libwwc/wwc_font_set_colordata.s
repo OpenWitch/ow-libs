@@ -20,6 +20,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
 */
 
+#include <wonderful.h>
 	.arch	i186
 	.code16
 	.intel_syntax noprefix
@@ -54,4 +55,4 @@ wwc_font_set_colordata:
 	pop	ds
 	pop	di
 	pop	si
-	ret	0x4
+	WF_PLATFORM_RET 0x4

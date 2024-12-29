@@ -405,6 +405,11 @@ static inline void sprite_set_vram(uint8_t offset) {
 	);
 }
 
+
+void lcd_set_interrupt_line(uint8_t line);
+
+uint8_t lcd_get_display_line(void);
+
 /* End auto-generated section */
 
 
