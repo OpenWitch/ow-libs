@@ -11,12 +11,14 @@
 	<define name="SYS_INT_HBLANK_COUNTUP" value="7">HBlank Timer</define>
 
 	<function name="sys_interrupt_set_hook" type="interrupt" int="0x17">
+		<comment>Hook the given interrupt handler and enable the interrupt.</comment>
 		<constant register="ah" value="0x00"/>
 		<argument name="id" type="u8" register="al"/>
 		<argument name="new_vector" type="intvector_t*" register="ds:bx"/>
 		<argument name="old_vector" type="intvector_t*" register="ds:dx"/>
 	</function>
 	<function name="sys_interrupt_reset_hook" type="interrupt" int="0x17">
+		<comment>Unhook the given interrupt handler and disable the interrupt.</comment>
 		<constant register="ah" value="0x01"/>
 		<argument name="id" type="u8" register="al"/>
 		<argument name="old_vector" type="intvector_t*" register="ds:bx"/>
@@ -27,7 +29,7 @@
 	</function>
 	<function name="sys_get_tick_count" type="interrupt" int="0x17">
 		<constant register="ah" value="0x03"/>
-		<return type="u16" register="ax"/>
+		<return type="u16" register="ax">Number of frames elapsed since system start.</return>
 	</function>
 	<function name="sys_sleep" type="interrupt" int="0x17">
 		<constant register="ah" value="0x04"/>
@@ -53,9 +55,12 @@
 		<argument name="value" type="u16" register="bx"/>
 	</function>
 	<function name="sys_get_ownerinfo" type="interrupt" int="0x17">
+		<comment>Read the owner information from the internal EEPROM.
+To read the complete owner information, one can use the ownerinfo_t structure type.</comment>
 		<constant register="ah" value="0x0A"/>
-		<argument name="size" type="u16" register="cx"/>
-		<argument name="data" type="void*" register="ds:dx"/>
+		<argument name="size" type="u16" register="cx">Size of the output buffer, in bytes.</argument>
+		<argument name="data" type="void*" register="ds:dx">Output buffer.</argument>
+		<return type="u16" register="ax">ERR_SIO_OK on success, or ERR_SIO_TIMEOUT on internal EEPROM communication timeout.</return>
 	</function>
 	<!-- TODO: sys_suspend -->
 	<!-- TODO: sys_resume -->
@@ -83,7 +88,7 @@
 	</function>
 	<function name="sys_get_version" type="interrupt" int="0x17">
 		<constant register="ah" value="0x12"/>
-		<return type="u16" register="ax"/>
+		<return type="u16" register="ax">Version of the installed BIOS.</return>
 	</function>
 	<!-- TODO: sys_swap -->
 	<function name="sys_set_resume" type="interrupt" int="0x17">

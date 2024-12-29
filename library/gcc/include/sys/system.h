@@ -23,8 +23,14 @@
 /* HBlank Timer */
 #define SYS_INT_HBLANK_COUNTUP 7
 
+/**
+ * Hook the given interrupt handler and enable the interrupt.
+ */
 void sys_interrupt_set_hook(uint8_t id, intvector_t __far* new_vector, intvector_t __far* old_vector);
 
+/**
+ * Unhook the given interrupt handler and disable the interrupt.
+ */
 void sys_interrupt_reset_hook(uint8_t id, intvector_t __far* old_vector);
 
 static inline void sys_wait(uint16_t ticks) {
@@ -37,6 +43,9 @@ static inline void sys_wait(uint16_t ticks) {
 	);
 }
 
+/**
+ * @return Number of frames elapsed since system start.
+ */
 static inline uint16_t sys_get_tick_count(void) {
 	uint16_t result;
 	__asm volatile (
@@ -110,7 +119,14 @@ static inline void sys_set_keepalive_int(uint16_t value) {
 	);
 }
 
-void sys_get_ownerinfo(uint16_t size, void __far* data);
+/**
+ * Read the owner information from the internal EEPROM.
+ * To read the complete owner information, one can use the ownerinfo_t structure type.
+ * @param size Size of the output buffer, in bytes.
+ * @param data Output buffer.
+ * @return ERR_SIO_OK on success, or ERR_SIO_TIMEOUT on internal EEPROM communication timeout.
+ */
+uint16_t sys_get_ownerinfo(uint16_t size, void __far* data);
 
 static inline void sys_set_remote(uint8_t value) {
 	uint16_t result;
@@ -165,6 +181,9 @@ static inline void __wf_iram* sys_get_my_iram(void) {
 	return result;
 }
 
+/**
+ * @return Version of the installed BIOS.
+ */
 static inline uint16_t sys_get_version(void) {
 	uint16_t result;
 	__asm volatile (
