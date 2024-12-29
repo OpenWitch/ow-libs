@@ -80,7 +80,7 @@ This requires the following number of tiles, starting from the base:
 	</function>
 	<function name="text_store_numeric" type="interrupt" int="0x13">
 		<constant register="ah" value="0x07"/>
-		<argument name="buffer" type="void*" register="ds:si"/>
+		<argument name="buffer" type="void*" register="ds:bx"/>
 		<argument name="width" type="u8" register="cl"/>
 		<argument name="flags" type="u8" register="ch" or="0x80"/> <!-- OR'd with NUM_STORE -->
 		<argument name="value" type="u16" register="dx"/>

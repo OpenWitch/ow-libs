@@ -6,7 +6,7 @@ uint16_t text_store_numeric(void __far* buffer, uint8_t width, uint8_t flags, ui
 	__asm volatile (
 		"int $0x13"
 		: "=a" (result)
-		: "Rds" (FP_SEG(buffer)), "S" (FP_OFF(buffer)), "d" (value), "c" (((flags << 8) | width)), "Rah" ((uint8_t) 0x07)
+		: "Rds" (FP_SEG(buffer)), "b" (FP_OFF(buffer)), "d" (value), "c" (((flags << 8) | width)), "Rah" ((uint8_t) 0x07)
 		: "cc", "memory"
 	);
 	return result;
