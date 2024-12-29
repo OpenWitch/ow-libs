@@ -132,6 +132,11 @@ static inline uint16_t text_put_numeric(uint8_t x, uint8_t y, uint8_t width, uin
 	return result;
 }
 
+/**
+ * @return Number of characters stored.
+ */
+uint16_t text_store_numeric(void __far* buffer, uint8_t width, uint8_t flags, uint16_t value);
+
 static inline void text_fill_char(uint8_t x, uint8_t y, uint16_t length, uint16_t ch) {
 	uint16_t result;
 	__asm volatile (

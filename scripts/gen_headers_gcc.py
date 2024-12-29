@@ -188,6 +188,14 @@ def write_function(f, output_file, include_implementation=False):
                 name = node.attributes["name"].nodeValue
                 output_file.write(f"\t{convert_type(node)} _{name};\n")
 
+	# Apply modifiers
+        for node in argument_nodes:
+            name = node.attributes["name"].nodeValue
+            if "or" in node.attributes:
+                output_file.write(f"\t{name} = {name} | {node.attributes['or'].nodeValue};\n")
+            if "and" in node.attributes:
+                output_file.write(f"\t{name} = {name} | {node.attributes['and'].nodeValue};\n")
+
         # Generate ASM block
         irq = f.attributes["int"].nodeValue
         output_file.write("\t__asm volatile (\n")

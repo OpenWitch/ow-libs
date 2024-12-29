@@ -78,6 +78,14 @@ This requires the following number of tiles, starting from the base:
 		<argument name="value" type="u16" register="dx"/>
 		<return type="u16" register="ax">Number of characters displayed.</return>
 	</function>
+	<function name="text_store_numeric" type="interrupt" int="0x13">
+		<constant register="ah" value="0x07"/>
+		<argument name="buffer" type="void*" register="ds:si"/>
+		<argument name="width" type="u8" register="cl"/>
+		<argument name="flags" type="u8" register="ch" or="0x80"/> <!-- OR'd with NUM_STORE -->
+		<argument name="value" type="u16" register="dx"/>
+		<return type="u16" register="ax">Number of characters stored.</return>
+	</function>
 	<function name="text_fill_char" type="interrupt" int="0x13">
 		<constant register="ah" value="0x08"/>
 		<argument name="x" type="u8" register="bl"/>
