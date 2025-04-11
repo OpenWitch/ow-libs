@@ -8,5 +8,5 @@ int16_t comm_send_char(uint8_t ch) {
 		: "b" (ch), "Rah" ((uint8_t) 0x02)
 		: "cc", "memory"
 	);
-	return result;
+	return (int16_t) result;
 }

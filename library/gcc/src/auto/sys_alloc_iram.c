@@ -8,5 +8,5 @@ void __wf_iram* sys_alloc_iram(void* ptr, uint16_t size) {
 		: "b" (ptr), "c" (size), "Rah" ((uint8_t) 0x0F)
 		: "cc", "memory"
 	);
-	return result;
+	return (void __wf_iram*) result;
 }

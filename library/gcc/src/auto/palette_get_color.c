@@ -8,5 +8,5 @@ uint16_t palette_get_color(uint16_t index) {
 		: "b" (index), "Rah" ((uint8_t) 0x1A)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

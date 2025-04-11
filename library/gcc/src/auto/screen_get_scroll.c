@@ -8,5 +8,5 @@ uint16_t screen_get_scroll(uint8_t id) {
 		: "a" ((uint16_t) (((0x14) << 8) | (id & 0xFF)))
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

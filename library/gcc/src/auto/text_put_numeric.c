@@ -8,5 +8,5 @@ uint16_t text_put_numeric(uint8_t x, uint8_t y, uint8_t width, uint8_t flags, ui
 		: "d" (value), "b" (((y << 8) | x)), "c" (((flags << 8) | width)), "Rah" ((uint8_t) 0x07)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

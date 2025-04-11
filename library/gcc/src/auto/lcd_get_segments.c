@@ -8,5 +8,5 @@ uint16_t lcd_get_segments(void) {
 		: "Rah" ((uint8_t) 0x1E)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

@@ -8,5 +8,5 @@ uint32_t sprite_get_char_location(uint16_t id) {
 		: "b" (id), "Rah" ((uint8_t) 0x11)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint32_t) result;
 }

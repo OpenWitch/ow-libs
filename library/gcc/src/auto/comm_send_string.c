@@ -8,5 +8,5 @@ int16_t comm_send_string(const char __far* str) {
 		: "Rds" (FP_SEG(str)), "d" (FP_OFF(str)), "Rah" ((uint8_t) 0x05)
 		: "cc", "memory"
 	);
-	return result;
+	return (int16_t) result;
 }

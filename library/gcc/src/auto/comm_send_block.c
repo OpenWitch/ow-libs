@@ -8,5 +8,5 @@ int16_t comm_send_block(const void __far* data, uint16_t length) {
 		: "Rds" (FP_SEG(data)), "d" (FP_OFF(data)), "c" (length), "Rah" ((uint8_t) 0x06)
 		: "cc", "memory"
 	);
-	return result;
+	return (int16_t) result;
 }

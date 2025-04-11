@@ -36,7 +36,7 @@ static inline uint16_t sound_get_channel(void) {
 		: "Rah" ((uint8_t) 0x02)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void sound_set_output(uint16_t value) {
@@ -57,7 +57,7 @@ static inline uint16_t sound_get_output(void) {
 		: "Rah" ((uint8_t) 0x04)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 void sound_set_wave(uint8_t channel, const void __far* data);
@@ -80,7 +80,7 @@ static inline uint16_t sound_get_pitch(uint16_t channel) {
 		: "a" ((uint16_t) (((0x07) << 8) | (channel & 0xFF)))
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void sound_set_volume(uint16_t channel, uint16_t value) {
@@ -101,7 +101,7 @@ static inline uint16_t sound_get_volume(uint16_t channel) {
 		: "a" ((uint16_t) (((0x09) << 8) | (channel & 0xFF)))
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void sound_set_sweep(uint8_t sweep, uint8_t step_time) {
@@ -122,7 +122,7 @@ static inline uint16_t sound_get_sweep(void) {
 		: "Rah" ((uint8_t) 0x0B)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void sound_set_noise(uint16_t value) {
@@ -143,7 +143,7 @@ static inline uint16_t sound_get_noise(void) {
 		: "Rah" ((uint8_t) 0x0D)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline uint16_t sound_get_random(void) {
@@ -154,7 +154,7 @@ static inline uint16_t sound_get_random(void) {
 		: "Rah" ((uint8_t) 0x0E)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 

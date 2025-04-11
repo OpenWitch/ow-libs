@@ -8,5 +8,5 @@ uint16_t sound_get_volume(uint16_t channel) {
 		: "a" ((uint16_t) (((0x09) << 8) | (channel & 0xFF)))
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

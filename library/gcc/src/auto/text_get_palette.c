@@ -8,5 +8,5 @@ uint16_t text_get_palette(void) {
 		: "Rah" ((uint8_t) 0x0A)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

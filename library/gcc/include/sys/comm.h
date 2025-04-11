@@ -58,7 +58,7 @@ static inline int16_t comm_send_char(uint8_t ch) {
 		: "b" (ch), "Rah" ((uint8_t) 0x02)
 		: "cc", "memory"
 	);
-	return result;
+	return (int16_t) result;
 }
 
 /**
@@ -73,7 +73,7 @@ static inline int16_t comm_receive_char(void) {
 		: "Rah" ((uint8_t) 0x03)
 		: "cc", "memory"
 	);
-	return result;
+	return (int16_t) result;
 }
 
 /**
@@ -89,7 +89,7 @@ static inline int16_t comm_receive_with_timeout(uint16_t timeout) {
 		: "c" (timeout), "Rah" ((uint8_t) 0x04)
 		: "cc", "memory"
 	);
-	return result;
+	return (int16_t) result;
 }
 
 /**
@@ -151,7 +151,7 @@ static inline uint16_t comm_get_baudrate(void) {
 		: "Rah" ((uint8_t) 0x0A)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 /**
@@ -178,7 +178,7 @@ static inline uint16_t comm_get_cancel_key(void) {
 		: "Rah" ((uint8_t) 0x0C)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 /* End auto-generated section */

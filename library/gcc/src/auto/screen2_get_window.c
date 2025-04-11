@@ -8,5 +8,5 @@ uint32_t screen2_get_window(void) {
 		: "Rah" ((uint8_t) 0x16)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint32_t) result;
 }

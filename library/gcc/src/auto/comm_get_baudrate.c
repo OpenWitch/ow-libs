@@ -8,5 +8,5 @@ uint16_t comm_get_baudrate(void) {
 		: "Rah" ((uint8_t) 0x0A)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

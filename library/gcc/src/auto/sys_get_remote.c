@@ -8,5 +8,5 @@ uint8_t sys_get_remote(void) {
 		: "Rah" ((uint8_t) 0x0E)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint8_t) result;
 }

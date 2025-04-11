@@ -8,5 +8,5 @@ uint16_t cursor_get_type(void) {
 		: "Rah" ((uint8_t) 0x15)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

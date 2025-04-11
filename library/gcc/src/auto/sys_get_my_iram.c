@@ -8,5 +8,5 @@ void __wf_iram* sys_get_my_iram(void) {
 		: "Rah" ((uint8_t) 0x11)
 		: "cc", "memory"
 	);
-	return result;
+	return (void __wf_iram*) result;
 }

@@ -8,5 +8,5 @@ uint16_t key_wait(void) {
 		: "Rah" ((uint8_t) 0x02)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

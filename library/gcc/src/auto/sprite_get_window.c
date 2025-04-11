@@ -8,5 +8,5 @@ uint32_t sprite_get_window(void) {
 		: "Rah" ((uint8_t) 0x18)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint32_t) result;
 }

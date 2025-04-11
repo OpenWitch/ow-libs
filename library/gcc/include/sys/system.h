@@ -54,7 +54,7 @@ static inline uint16_t sys_get_tick_count(void) {
 		: "Rah" ((uint8_t) 0x03)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void sys_sleep(void) {
@@ -85,7 +85,7 @@ static inline uint16_t sys_get_sleep_time(void) {
 		: "Rah" ((uint8_t) 0x06)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void sys_set_awake_key(uint16_t value) {
@@ -106,7 +106,7 @@ static inline uint16_t sys_get_awake_key(void) {
 		: "Rah" ((uint8_t) 0x08)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void sys_set_keepalive_int(uint16_t value) {
@@ -146,7 +146,7 @@ static inline uint8_t sys_get_remote(void) {
 		: "Rah" ((uint8_t) 0x0E)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint8_t) result;
 }
 
 static inline void __wf_iram* sys_alloc_iram(void* ptr, uint16_t size) {
@@ -157,7 +157,7 @@ static inline void __wf_iram* sys_alloc_iram(void* ptr, uint16_t size) {
 		: "b" (ptr), "c" (size), "Rah" ((uint8_t) 0x0F)
 		: "cc", "memory"
 	);
-	return result;
+	return (void __wf_iram*) result;
 }
 
 static inline void sys_free_iram(void __wf_iram* ptr) {
@@ -178,7 +178,7 @@ static inline void __wf_iram* sys_get_my_iram(void) {
 		: "Rah" ((uint8_t) 0x11)
 		: "cc", "memory"
 	);
-	return result;
+	return (void __wf_iram*) result;
 }
 
 /**
@@ -192,7 +192,7 @@ static inline uint16_t sys_get_version(void) {
 		: "Rah" ((uint8_t) 0x12)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void sys_set_resume(uint16_t value) {
@@ -213,7 +213,7 @@ static inline uint16_t sys_get_resume(void) {
 		: "Rah" ((uint8_t) 0x15)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 /* End auto-generated section */

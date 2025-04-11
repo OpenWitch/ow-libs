@@ -8,5 +8,5 @@ uint16_t rtc_get_datetime(uint16_t field) {
 		: "b" (field), "Rah" ((uint8_t) 0x02)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

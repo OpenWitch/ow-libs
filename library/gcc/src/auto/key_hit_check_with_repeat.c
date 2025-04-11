@@ -8,5 +8,5 @@ uint16_t key_hit_check_with_repeat(void) {
 		: "Rah" ((uint8_t) 0x05)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

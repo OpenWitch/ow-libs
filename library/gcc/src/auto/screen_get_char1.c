@@ -8,5 +8,5 @@ uint16_t screen_get_char1(uint8_t screen_id, uint8_t x, uint8_t y) {
 		: "a" ((uint16_t) (((0x08) << 8) | (screen_id & 0xFF))), "b" (((y << 8) | x)), "c" ((uint16_t) 0)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

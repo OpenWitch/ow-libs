@@ -8,5 +8,5 @@ uint16_t sound_get_sweep(void) {
 		: "Rah" ((uint8_t) 0x0B)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

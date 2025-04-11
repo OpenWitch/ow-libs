@@ -8,5 +8,5 @@ uint16_t comm_get_cancel_key(void) {
 		: "Rah" ((uint8_t) 0x0C)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

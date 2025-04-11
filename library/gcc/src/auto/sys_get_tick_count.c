@@ -8,5 +8,5 @@ uint16_t sys_get_tick_count(void) {
 		: "Rah" ((uint8_t) 0x03)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

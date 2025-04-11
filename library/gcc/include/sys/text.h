@@ -95,7 +95,7 @@ static inline uint16_t text_get_mode(void) {
 		: "Rah" ((uint8_t) 0x03)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void text_put_char(uint8_t x, uint8_t y, uint16_t ch) {
@@ -129,7 +129,7 @@ static inline uint16_t text_put_numeric(uint8_t x, uint8_t y, uint8_t width, uin
 		: "d" (value), "b" (((y << 8) | x)), "c" (((flags << 8) | width)), "Rah" ((uint8_t) 0x07)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 /**
@@ -173,7 +173,7 @@ static inline uint16_t text_get_palette(void) {
 		: "Rah" ((uint8_t) 0x0A)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 /**
@@ -214,7 +214,7 @@ static inline uint8_t text_get_screen(void) {
 		: "Rah" ((uint8_t) 0x0F)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint8_t) result;
 }
 
 /**
@@ -241,7 +241,7 @@ static inline uint8_t cursor_status(void) {
 		: "Rah" ((uint8_t) 0x11)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint8_t) result;
 }
 
 static inline void cursor_set_location(uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
@@ -262,7 +262,7 @@ static inline uint32_t cursor_get_location(void) {
 		: "Rah" ((uint8_t) 0x13)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint32_t) result;
 }
 
 /**
@@ -287,7 +287,7 @@ static inline uint16_t cursor_get_type(void) {
 		: "Rah" ((uint8_t) 0x15)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 /* End auto-generated section */

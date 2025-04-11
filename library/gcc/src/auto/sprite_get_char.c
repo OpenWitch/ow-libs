@@ -8,5 +8,5 @@ uint16_t sprite_get_char(uint16_t id) {
 		: "b" (id), "Rah" ((uint8_t) 0x0D)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

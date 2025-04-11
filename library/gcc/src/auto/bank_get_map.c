@@ -8,5 +8,5 @@ uint16_t bank_get_map(uint16_t bank_type) {
 		: "b" (bank_type), "Rah" ((uint8_t) 0x01)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

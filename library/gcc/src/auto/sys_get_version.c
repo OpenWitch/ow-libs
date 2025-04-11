@@ -8,5 +8,5 @@ uint16_t sys_get_version(void) {
 		: "Rah" ((uint8_t) 0x12)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

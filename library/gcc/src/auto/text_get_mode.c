@@ -8,5 +8,5 @@ uint16_t text_get_mode(void) {
 		: "Rah" ((uint8_t) 0x03)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

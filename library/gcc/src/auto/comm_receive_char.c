@@ -8,5 +8,5 @@ int16_t comm_receive_char(void) {
 		: "Rah" ((uint8_t) 0x03)
 		: "cc", "memory"
 	);
-	return result;
+	return (int16_t) result;
 }

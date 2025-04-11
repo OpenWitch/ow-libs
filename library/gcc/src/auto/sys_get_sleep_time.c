@@ -8,5 +8,5 @@ uint16_t sys_get_sleep_time(void) {
 		: "Rah" ((uint8_t) 0x06)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

@@ -263,7 +263,7 @@ def write_function(f, output_file, include_implementation=False):
                 name = node.attributes["name"].nodeValue
                 output_file.write(f"\tif ({name}) *{name} = _{name};\n")
         if return_node is not None:
-            output_file.write("\treturn result;\n")
+            output_file.write(f"\treturn ({convert_type(return_node)}) result;\n")
 
         output_file.write("}\n")
     else:

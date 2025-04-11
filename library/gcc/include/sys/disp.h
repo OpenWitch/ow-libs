@@ -92,7 +92,7 @@ static inline uint16_t display_status(void) {
 		: "Rah" ((uint8_t) 0x01)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 void font_set_monodata(uint16_t start, uint16_t count, const void __far* data);
@@ -119,7 +119,7 @@ static inline uint16_t font_get_color(void) {
 		: "Rah" ((uint8_t) 0x06)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 void screen_set_char(uint8_t screen_id, uint8_t x, uint8_t y, uint8_t width, uint8_t height, const void __far* tiles);
@@ -134,7 +134,7 @@ static inline uint16_t screen_get_char1(uint8_t screen_id, uint8_t x, uint8_t y)
 		: "a" ((uint16_t) (((0x08) << 8) | (screen_id & 0xFF))), "b" (((y << 8) | x)), "c" ((uint16_t) 0)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void screen_fill_char(uint8_t screen_id, uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint16_t tile) {
@@ -185,7 +185,7 @@ static inline uint16_t sprite_get_char(uint16_t id) {
 		: "b" (id), "Rah" ((uint8_t) 0x0D)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void sprite_set_location(uint16_t id, uint8_t x, uint8_t y) {
@@ -206,7 +206,7 @@ static inline uint16_t sprite_get_location(uint16_t id) {
 		: "b" (id), "Rah" ((uint8_t) 0x0F)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void sprite_set_char_location(uint16_t id, uint16_t tile, uint8_t x, uint8_t y) {
@@ -227,7 +227,7 @@ static inline uint32_t sprite_get_char_location(uint16_t id) {
 		: "b" (id), "Rah" ((uint8_t) 0x11)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint32_t) result;
 }
 
 void sprite_set_data(uint16_t first, uint16_t count, const void __far* data);
@@ -250,7 +250,7 @@ static inline uint16_t screen_get_scroll(uint8_t id) {
 		: "a" ((uint16_t) (((0x14) << 8) | (id & 0xFF)))
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void screen2_set_window(uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
@@ -271,7 +271,7 @@ static inline uint32_t screen2_get_window(void) {
 		: "Rah" ((uint8_t) 0x16)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint32_t) result;
 }
 
 static inline void sprite_set_window(uint8_t x, uint8_t y, uint8_t width, uint8_t height) {
@@ -292,7 +292,7 @@ static inline uint32_t sprite_get_window(void) {
 		: "Rah" ((uint8_t) 0x18)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint32_t) result;
 }
 
 static inline void palette_set_color(uint16_t index, uint16_t colors) {
@@ -313,7 +313,7 @@ static inline uint16_t palette_get_color(uint16_t index) {
 		: "b" (index), "Rah" ((uint8_t) 0x1A)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void lcd_set_color(uint16_t low, uint16_t high) {
@@ -334,7 +334,7 @@ static inline uint32_t lcd_get_color(void) {
 		: "Rah" ((uint8_t) 0x1C)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint32_t) result;
 }
 
 static inline void lcd_set_segments(uint16_t flags) {
@@ -355,7 +355,7 @@ static inline uint16_t lcd_get_segments(void) {
 		: "Rah" ((uint8_t) 0x1E)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void lcd_set_sleep(uint16_t flags) {
@@ -376,7 +376,7 @@ static inline uint16_t lcd_get_sleep(void) {
 		: "Rah" ((uint8_t) 0x20)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 /**

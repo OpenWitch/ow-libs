@@ -8,5 +8,5 @@ uint16_t key_get_repeat(void) {
 		: "Rah" ((uint8_t) 0x04)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

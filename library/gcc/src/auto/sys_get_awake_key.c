@@ -8,5 +8,5 @@ uint16_t sys_get_awake_key(void) {
 		: "Rah" ((uint8_t) 0x08)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

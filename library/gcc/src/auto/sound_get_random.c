@@ -8,5 +8,5 @@ uint16_t sound_get_random(void) {
 		: "Rah" ((uint8_t) 0x0E)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

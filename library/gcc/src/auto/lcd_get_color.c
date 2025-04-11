@@ -8,5 +8,5 @@ uint32_t lcd_get_color(void) {
 		: "Rah" ((uint8_t) 0x1C)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint32_t) result;
 }

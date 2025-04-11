@@ -8,5 +8,5 @@ uint8_t text_get_screen(void) {
 		: "Rah" ((uint8_t) 0x0F)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint8_t) result;
 }

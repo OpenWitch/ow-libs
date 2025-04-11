@@ -10,5 +10,5 @@ int16_t comm_receive_block(void __far* data, uint16_t length, int16_t __far* out
 		: "cc", "memory"
 	);
 	if (out_length) *out_length = _out_length;
-	return result;
+	return (int16_t) result;
 }

@@ -39,7 +39,7 @@ static inline uint16_t key_press_check(void) {
 		: "Rah" ((uint8_t) 0x00)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 /**
@@ -54,7 +54,7 @@ static inline uint16_t key_hit_check(void) {
 		: "Rah" ((uint8_t) 0x01)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 /**
@@ -69,7 +69,7 @@ static inline uint16_t key_wait(void) {
 		: "Rah" ((uint8_t) 0x02)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 static inline void key_set_repeat(uint8_t delay, uint8_t rate) {
@@ -90,7 +90,7 @@ static inline uint16_t key_get_repeat(void) {
 		: "Rah" ((uint8_t) 0x04)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 /**
@@ -105,7 +105,7 @@ static inline uint16_t key_hit_check_with_repeat(void) {
 		: "Rah" ((uint8_t) 0x05)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }
 
 /* End auto-generated section */

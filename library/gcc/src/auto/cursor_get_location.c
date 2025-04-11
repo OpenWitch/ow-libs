@@ -8,5 +8,5 @@ uint32_t cursor_get_location(void) {
 		: "Rah" ((uint8_t) 0x13)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint32_t) result;
 }

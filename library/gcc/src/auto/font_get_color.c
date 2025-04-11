@@ -8,5 +8,5 @@ uint16_t font_get_color(void) {
 		: "Rah" ((uint8_t) 0x06)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

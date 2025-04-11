@@ -8,5 +8,5 @@ int16_t comm_receive_with_timeout(uint16_t timeout) {
 		: "c" (timeout), "Rah" ((uint8_t) 0x04)
 		: "cc", "memory"
 	);
-	return result;
+	return (int16_t) result;
 }

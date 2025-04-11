@@ -8,5 +8,5 @@ uint16_t sys_get_ownerinfo(uint16_t size, void __far* data) {
 		: "Rds" (FP_SEG(data)), "d" (FP_OFF(data)), "c" (size), "Rah" ((uint8_t) 0x0A)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint16_t) result;
 }

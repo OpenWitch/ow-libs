@@ -8,5 +8,5 @@ uint8_t cursor_status(void) {
 		: "Rah" ((uint8_t) 0x11)
 		: "cc", "memory"
 	);
-	return result;
+	return (uint8_t) result;
 }
