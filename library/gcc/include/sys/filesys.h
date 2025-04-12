@@ -63,5 +63,59 @@
 #define E_FS_FILE_NOT_OPEN 0x8005
 /* End auto-generated section */
 
+struct _FsIL;
+typedef struct {
+	/**
+	 * File name, encoded in Shift-JIS
+	 */
+	char name[MAXFNAME];
+
+	/**
+	 * File description, encoded in Shift-JIS
+	 */
+	char info[MAXFINFO];
+
+	/**
+	 * Location of file in file system
+	 */
+	void __far* loc;
+
+	/**
+	 * Length of file, in bytes
+	 */
+	uint32_t len;
+
+	/**
+	 * File: 128-byte (XMODEM) chunk count, rounded up.
+	 * Directory: Number of total entries in directory.
+	 * (-1 = entry not allocated)
+	 */
+	int count;
+
+	/**
+	 * File mode.
+	 */
+	uint16_t mode;
+
+	/**
+	 * Modification time.
+	 */
+	uint32_t mtime;
+
+	/**
+	 * Directory: FsIL library instance handling this
+	 * directory.
+	 */
+	struct _FsIL __far* il;
+
+	/**
+	 * Offset of resource data in file, passed via the
+	 * process control block to the program.
+	 * (-1 = resource not present)
+	 */
+	int32_t resource;
+} fent_t;
+
+typedef fent_t __far* FS;
 
 #endif /* __LIBWW_SYS_FILESYS_H__ */
