@@ -1,17 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <header>
-	<define name="MAXFNAME" value="16"/>
-	<define name="MAXPATHLEN" value="64"/>
-	<define name="MAXFINFO" value="24"/>
+	<define name="MAXFNAME" value="16">
+		<comment>Maximum file name length.</comment>
+	</define>
+	<define name="MAXPATHLEN" value="64">
+		<comment>Maximum file path length.</comment>
+	</define>
+	<define name="MAXFINFO" value="24">
+		<comment>Maximum file description length.</comment>
+	</define>
 
-	<define name="FMODE_X" value="0x01"/>
-	<define name="FMODE_W" value="0x02"/>
-	<define name="FMODE_R" value="0x04"/>
+	<define name="FMODE_X" value="0x01">
+		<comment>File mode flag: Execute</comment>
+	</define>
+	<define name="FMODE_W" value="0x02">
+		<comment>File mode flag: Write</comment>
+	</define>
+	<define name="FMODE_R" value="0x04">
+		<comment>File mode flag: Read</comment>
+	</define>
 	<define name="FMODE_MMAP" value="0x08"/>
 	<define name="FMODE_STREAM" value="0x10"/>
-	<define name="FMODE_ILIB" value="0x20"/>
-	<define name="FMODE_LINK" value="0x40"/>
-	<define name="FMODE_DIR" value="0x80"/>
+	<define name="FMODE_ILIB" value="0x20">
+		<comment>File mode flag: Indirect Library</comment>
+	</define>
+	<define name="FMODE_LINK" value="0x40">
+		<comment>File mode flag: Link</comment>
+	</define>
+	<define name="FMODE_DIR" value="0x80">
+		<comment>File mode flag: Directory</comment>
+	</define>
 
 	<define name="E_FS_SUCCESS" value="0"/>
 	<define name="E_FS_ERROR" value="0x8000"/>
