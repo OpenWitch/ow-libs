@@ -33,4 +33,4 @@ wwc_palette_set_color:
 	shl	ax, 1
 	mov	bx, ax
 	mov	word ptr ss:[bx], cx
-	WF_PLATFORM_RET
+	IA16_RET

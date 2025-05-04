@@ -30,4 +30,4 @@ wwc_get_hardarch:
 	in	al, 0xa0
 	and	al, 0x02
 	shr	al, 1
-	WF_PLATFORM_RET
+	IA16_RET

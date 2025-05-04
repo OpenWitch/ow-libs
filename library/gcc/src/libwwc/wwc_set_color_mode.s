@@ -32,4 +32,4 @@ wwc_set_color_mode:
 	and	al, 0x1F
 	or	al, ah
 	out	0x60, al
-	WF_PLATFORM_RET
+	IA16_RET

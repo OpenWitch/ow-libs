@@ -29,4 +29,4 @@
 wwc_get_color_mode:
 	in	al, 0x60
 	and	al, 0xE0
-	WF_PLATFORM_RET
+	IA16_RET

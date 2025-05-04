@@ -41,4 +41,4 @@ wwc_clear_font:
 	rep	movsw
 	pop	es
 	pop	di
-	WF_PLATFORM_RET
+	IA16_RET

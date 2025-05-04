@@ -28,4 +28,4 @@
 	.global lcd_set_interrupt_line
 lcd_set_interrupt_line:
 	out	0x03, al
-	WF_PLATFORM_RET
+	IA16_RET

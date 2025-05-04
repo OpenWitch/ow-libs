@@ -30,4 +30,4 @@ sound_set_voice_volume:
 	shl	al, 2
 	or	al, dl
 	out	0x94, al
-	WF_PLATFORM_RET
+	IA16_RET

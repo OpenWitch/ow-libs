@@ -55,4 +55,4 @@ wwc_font_set_colordata:
 	pop	ds
 	pop	di
 	pop	si
-	WF_PLATFORM_RET 0x4
+	IA16_RET 0x4

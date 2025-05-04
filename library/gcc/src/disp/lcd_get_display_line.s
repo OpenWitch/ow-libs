@@ -28,4 +28,4 @@
 	.global lcd_get_display_line
 lcd_get_display_line:
 	in	al, 0x02
-	WF_PLATFORM_RET
+	IA16_RET

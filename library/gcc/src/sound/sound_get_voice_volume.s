@@ -28,4 +28,4 @@
 	.global sound_get_voice_volume
 sound_get_voice_volume:
 	in	al, 0x94
-	WF_PLATFORM_RET
+	IA16_RET
