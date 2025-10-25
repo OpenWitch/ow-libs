@@ -111,11 +111,16 @@ This requires the following number of tiles, starting from the base:
 		<argument name="data" type="void*" const="1" register="ds:dx">Input buffer containing font data</argument>
 	</function>
 	<!-- TODO: text_reset_ank_font -->
-	<!-- TODO: text_set_sjis_font -->
+	<function name="text_set_sjis_font" type="interrupt" int="0x13">
+		<constant register="ah" value="0x0C"/>
+		<argument name="handler" type="void*" register="bx:dx">Shift-JIS font handler</argument>
+	</function>
 	<function name="text_get_fontdata" type="interrupt" int="0x13">
 		<constant register="ah" value="0x0D"/>
 		<argument name="ch" type="u16" register="cx">Character code</argument>
 		<argument name="data" type="void*" register="ds:dx">Output buffer for font data</argument>
+		<!-- BUGFIX: added missing return value -->
+		<return type="u16" register="ax">0x0000 on success, 0x8000 on failure.</return>
 	</function>
 	<function name="text_set_screen" type="interrupt" int="0x13">
 		<constant register="ah" value="0x0E"/>
