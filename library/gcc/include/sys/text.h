@@ -185,10 +185,16 @@ static inline uint16_t text_get_palette(void) {
 void text_set_ank_font(uint8_t start, uint8_t depth, uint16_t count, const void __far* data);
 
 /**
+ * @param handler Shift-JIS font handler
+ */
+void text_set_sjis_font(void __far* handler);
+
+/**
  * @param ch Character code
  * @param data Output buffer for font data
+ * @return 0x0000 on success, 0x8000 on failure.
  */
-void text_get_fontdata(uint16_t ch, void __far* data);
+uint16_t text_get_fontdata(uint16_t ch, void __far* data);
 
 /**
  * @param id Screen ID

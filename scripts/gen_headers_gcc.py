@@ -227,6 +227,10 @@ def write_function(f, output_file, include_implementation=False):
                         encountered_ds = True
                     cons = constraint_map[cons[3:]]
                     inputs.append(f"\"{cons}\" (FP_OFF({name}))")
+                elif cons.startswith("bx:"):
+                    inputs.append(f"\"b\" (FP_SEG({name}))")
+                    cons = constraint_map[cons[3:]]
+                    inputs.append(f"\"{cons}\" (FP_OFF({name}))")
                 elif cons == "al" and "ah" in constant_values:
                     # Special case - AL argument mixed with AH constant
                     ah_constant = constant_values["ah"]
