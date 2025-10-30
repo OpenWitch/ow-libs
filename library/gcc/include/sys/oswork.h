@@ -17,6 +17,38 @@
 #define ROM0FS_NUM_ENTRIES 128
 /* End auto-generated section */
 
+typedef struct _fhandle_t {
+	/**
+	 * Pointer to file system containing file.
+	 */
+	FS fs;
+	/**
+	 * Pointer to file entry in RAM.
+	 */
+	fent_t __far *ent;
+	/**
+	 * File open mode, passed to FS open().
+	 */
+	fmode_t mode;
+	/**
+	 * File location in memory, copied from FS entry.
+	 */
+	floc_t loc;
+	/**
+	 * File length, in bytes.
+	 */
+	flen_t len;
+	/**
+	 * File position, in bytes.
+	 */
+	fpos_t pos;
+	/**
+	 * File sector count, copied from FS entry.
+	 */
+	int count;
+	uint8_t reserved[8];
+} fhandle_t;
+
 /**
  * SRAM work area used by FreyaOS.
  */
@@ -36,7 +68,11 @@ typedef struct {
 	 */
 	uint16_t _os_version;
 
-	uint8_t todo_2[0x2F2 - 0x6E];
+	uint32_t todo_2;
+	
+	fhandle_t _openfiles[MAXFILES];
+
+	uint8_t todo_3[0x80];
 
 	/**
 	 * Filesystem entries for the root directory ("/")
