@@ -75,5 +75,6 @@
 	<function name="timer_get_count" type="interrupt" int="0x16">
 		<constant register="ah" value="0x09"/>
 		<argument name="type" type="u8" register="al"/>
+		<return type="u16" register="ax"/>
 	</function>
 </header>
