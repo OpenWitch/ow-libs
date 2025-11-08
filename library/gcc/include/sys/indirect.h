@@ -31,8 +31,9 @@ typedef struct {
 	/**
 	 * Retrieve the ILinfo struct of a given library.
 	 */
-	IL_FUNCTION ILinfo __far *(*_get_info)(void);
+	IL_FUNCTION ILinfo __far *(*_get_info)(void) __far;
 } IL;
+_Static_assert(sizeof(IL) == 10, "Invalid IL size");
 
 typedef struct {
 	IL super;
@@ -57,6 +58,7 @@ typedef struct {
 	 */
 	IL_FUNCTION int (*_open_system)(const char __far *name, IL __far *buffer);
 } IlibIL;
+_Static_assert(sizeof(IlibIL) == 18, "Invalid IlibIL size");
 
 typedef struct _ProcIL {
 	IL super;
