@@ -128,6 +128,27 @@ static inline void sys_set_keepalive_int(uint16_t value) {
  */
 uint16_t sys_get_ownerinfo(uint16_t size, void __far* data);
 
+static inline uint16_t sys_suspend(uint8_t slot) {
+	uint16_t result;
+	__asm volatile (
+		"int $0x17"
+		: "=a" (result)
+		: "a" ((uint16_t) (((0x0B) << 8) | (slot & 0xFF)))
+		: "cc", "memory"
+	);
+	return (uint16_t) result;
+}
+
+static inline void sys_resume(uint8_t slot) {
+	uint16_t result;
+	__asm volatile (
+		"int $0x17"
+		: "=a" (result)
+		: "a" ((uint16_t) (((0x0C) << 8) | (slot & 0xFF)))
+		: "cc", "memory"
+	);
+}
+
 static inline void sys_set_remote(uint8_t value) {
 	uint16_t result;
 	__asm volatile (
@@ -190,6 +211,17 @@ static inline uint16_t sys_get_version(void) {
 		"int $0x17"
 		: "=a" (result)
 		: "Rah" ((uint8_t) 0x12)
+		: "cc", "memory"
+	);
+	return (uint16_t) result;
+}
+
+static inline uint16_t sys_swap(uint8_t slot) {
+	uint16_t result;
+	__asm volatile (
+		"int $0x17"
+		: "=a" (result)
+		: "a" ((uint16_t) (((0x13) << 8) | (slot & 0xFF)))
 		: "cc", "memory"
 	);
 	return (uint16_t) result;
