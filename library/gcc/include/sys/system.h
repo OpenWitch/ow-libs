@@ -128,6 +128,7 @@ static inline void sys_set_keepalive_int(uint16_t value) {
  */
 uint16_t sys_get_ownerinfo(uint16_t size, void __far* data);
 
+__attribute__((returns_twice))
 static inline uint16_t sys_suspend(uint8_t slot) {
 	uint16_t result;
 	__asm volatile (
@@ -216,6 +217,7 @@ static inline uint16_t sys_get_version(void) {
 	return (uint16_t) result;
 }
 
+__attribute__((returns_twice))
 static inline uint16_t sys_swap(uint8_t slot) {
 	uint16_t result;
 	__asm volatile (

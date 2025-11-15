@@ -1,5 +1,6 @@
 #include <sys/types.h>
 
+__attribute__((returns_twice))
 uint16_t sys_suspend(uint8_t slot) {
 	uint16_t result;
 	__asm volatile (
