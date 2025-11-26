@@ -11,5 +11,9 @@
 #define O_RDWR (FMODE_R | FMODE_W)
 /* End auto-generated section */
 
+#include <sys/filesys.h>
+#include <sys/indirect.h>
+
+FsIL __far* fs_getil(FS fs);
 
 #endif /* __LIBWW_SYS_FCNTL_H__ */
